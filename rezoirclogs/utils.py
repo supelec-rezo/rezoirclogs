@@ -7,12 +7,15 @@ def convert_unknow_encoding(text):
     return t.encode('utf-8')
 
 
-
-class UnrecognizedLine(object):
+class Line(object):
     text = ''
 
 
-class Message(object):
+class UnrecognizedLine(Line):
+    pass
+
+
+class Message(Line):
     message = ''
     user = ''
     time = ''
@@ -43,7 +46,6 @@ def parse_log_line(line):
             m.message = s[2]
         else: #No message, so no split
             m.message = ""
-        return m
     elif s[1] == '*': #/me
         m = MeMessage()
         s = line.split(None, 3)
@@ -53,7 +55,6 @@ def parse_log_line(line):
             m.message = s[3]
         except IndexError:
             m.message = ''
-        return m
     elif s[1] == '-!-':
         m = StatusMessage()
         s = line.split(None, 3)
@@ -63,9 +64,8 @@ def parse_log_line(line):
             m.message = s[3]
         except IndexError:
             m.message = ''
-        return m
 
     else: #autre
         m = UnrecognizedLine()
-        m.text = line
-        return m
+    m.text = line
+    return m
