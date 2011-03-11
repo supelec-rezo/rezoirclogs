@@ -1,0 +1,45 @@
+{% extends "base.jinja2" %}
+
+{% block title %}Directory : {{ dir.__name__ }}{% endblock %}
+
+{% block content %}
+    {% if dir__name__ is defined %}
+        <h1>{{ dir.__name__ }}</h1>
+    {% else %}
+        <h1>Logs IRC</h1>
+    {% endif %}
+
+    {% if dir.__parent__ %}
+        <a href="{{ dir.__parent__ | model_url }}">..</a>
+    {% endif %}
+
+    {% for subdir in dir %}
+        {% if loop.first %}
+            <ul>
+        {% endif %}
+
+    <li> <a href="{{ subdir | model_url }}">{{ subdir.__name__ }}</a>
+
+        {% if loop.last %}
+            </ul>
+        {% endif %}
+    {% endfor %}
+
+
+    {% for chan in dir.chans %}
+        {% if loop.first %}
+            <h2>Chans</h2>
+            <ul>
+        {% endif %}
+    <li class="chan"> <a href="{{ chan | model_url }}">{{ chan.name }}</a>
+        <ul>
+            {% for file in chan.last(5) %}
+                <li class="file"><a href="{{ file | model_url }}">{{ file.date.strftime('%d/%m/%Y (%A)') }}</a></li>
+            {% endfor %}
+        </ul>
+    </li>
+    {% if loop.last %}
+        </ul>
+    {% endif %}
+    {% endfor %}
+{% endblock %}

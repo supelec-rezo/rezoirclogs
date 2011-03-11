@@ -70,7 +70,7 @@ class LogFileTests(unittest.TestCase):
 
         from rezoirclogs.resources import LogFile
         from rezoirclogs.utils import NormalMessage, MeMessage, StatusMessage
-        logfile = LogFile(Fs(), '')
+        logfile = LogFile(Fs(), '', '20100409')
         l = list(logfile)
         self.assertIsInstance(l[0], StatusMessage)
         self.assertIsInstance(l[1], NormalMessage)
@@ -105,6 +105,20 @@ class ChanTests(unittest.TestCase):
             self.assertIn(logfile.__name__, ('20100203', '20100204'))
             self.assertEqual(logfile.__parent__, chan)
             self.assertEqual(dirname(logfile.path), chan.path)
+
+    def test_previous_next_chan(self):
+        chan = self._make_one()
+        first = chan['20100203']
+        second = chan['20100204']
+        self.assertEqual(first.next.__name__, second.__name__)
+        self.assertEqual(first.__name__, second.previous.__name__)
+
+    def test_last(self):
+        chan = self._make_one()
+        l = chan.last(5)
+        self.assertEqual(len(l), 2)
+        self.assertEqual(l[0].__name__, '20100204')
+        self.assertEqual(l[1].__name__, '20100203')
 
 
 class DirectoryTests(unittest.TestCase):

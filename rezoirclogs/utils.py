@@ -1,3 +1,5 @@
+import re
+from jinja2 import Markup
 
 def convert_unknow_encoding(text):
     try:
@@ -8,29 +10,31 @@ def convert_unknow_encoding(text):
 
 
 class Line(object):
+    type = 'line'
     text = ''
 
 
 class UnrecognizedLine(Line):
-    pass
+    type = 'unrecognized'
 
 
 class Message(Line):
+    type = 'message'
     message = ''
     user = ''
     time = ''
 
 
 class NormalMessage(Message):
-    pass
+    type = 'normal'
 
 
 class MeMessage(Message):
-    pass
+    type = 'me'
 
 
 class StatusMessage(Message):
-    pass
+    type = 'status'
 
 
 def parse_log_line(line):
@@ -69,3 +73,51 @@ def parse_log_line(line):
         m = UnrecognizedLine()
     m.text = line
     return m
+
+
+class ColorPool(object):
+    colors = [ "#E90C82", "#8E55E9", "#B30E0E", "#16B338", "#58B0B3", "#9D54B3", "#B39675", "#3176B3"]
+    def __init__(self):
+        self.nicks = {}
+
+    def get_magic_number(self, nick):
+        sum = 0
+        for letter in nick:
+            sum += ord(letter)
+        return sum%len(self.colors)
+
+    def get_color(self, nick):
+        if not self.nicks.has_key(nick):
+            self.nicks[nick] = self.colors[self.get_magic_number(nick)]
+        return self.nicks[nick]
+
+_colorPool = ColorPool()
+
+def colored(nick):
+    color = _colorPool.get_color(nick)
+    return Markup('<span style="color:%s">%s</span>')%(color, nick)
+
+_url_pattern = [
+        (re.compile(r"(\b(http|https|ftp)://([-A-Za-z0-9+&@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&@#/%=~_()|]))"),
+         Markup(r'<a href="%(url)s">%(url)s</a>')),
+        (re.compile(r"((^|\b)www\.([-A-Za-z0-9+&@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&@#/%=~_()|]))"),
+         Markup(r'<a href="http://%(url)s">%(url)s</a>'))
+]
+
+def handle_url(message):
+    words = Markup.escape(message).split(' ')
+    replaced = False
+    for i, word in enumerate(words):
+        for (pattern, sub) in _url_pattern:
+            try:
+                url = pattern.findall(word)[0][0]
+                words[i] = word.replace(url, sub%{'url': url})
+                replaced = True
+                break
+            except IndexError:
+                pass
+
+    if replaced:
+        return Markup(' ').join(words)
+    else:
+        return message

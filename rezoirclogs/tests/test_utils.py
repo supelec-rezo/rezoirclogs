@@ -71,3 +71,21 @@ class ParseLogLineTests(unittest.TestCase):
         m = parse_log_line("Ceci n'est pas une ligne de log")
         self.assertIsInstance(m, UnrecognizedLine)
         self.assertEqual(m.text, "Ceci n'est pas une ligne de log")
+
+
+class ColorationTests(unittest.TestCase):
+    def test_colored(self):
+        from jinja2 import Markup
+        from rezoirclogs.utils import colored
+        self.assertEqual(colored('madjar'), Markup(u'<span style="color:#3176B3">madjar</span>'))
+
+
+class UrlHandlerTests(unittest.TestCase):
+    def test_without_url(self):
+        from rezoirclogs.utils import handle_url
+        self.assertEqual(handle_url('hello, world'), 'hello, world')
+
+    def test_url(self):
+        from rezoirclogs.utils import handle_url
+        self.assertEqual(handle_url('www.tagada.fr'), '<a href="http://www.tagada.fr">www.tagada.fr</a>')
+        self.assertEqual(handle_url('ftp://truc'), '<a href="ftp://truc">ftp://truc</a>')

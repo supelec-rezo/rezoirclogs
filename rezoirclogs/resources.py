@@ -1,5 +1,6 @@
 from functools import wraps
 import os
+import datetime
 from rezoirclogs.utils import parse_log_line
 
 
@@ -44,13 +45,28 @@ class Filesystem(object):
 
 
 class LogFile(Base):
-    def __init__(self, filesystem, path):
+    def __init__(self, filesystem, path, date):
         self.fs = filesystem
         self.path = os.path.abspath(os.path.normpath(path))
+        self.date = datetime.date(int(date[0:4]), int(date[4:6]), int(date[6:8]))
 
     def __iter__(self):
         for line in self.fs.open(self.path):
             yield parse_log_line(line)
+
+    def neighbour(self, n):
+        wanted = self.date + datetime.timedelta(days = n)
+        wanted = wanted.strftime('%Y%m%d')
+        return self.__parent__[wanted]
+
+    @property
+    def previous(self):
+        return self.neighbour(-1)
+
+    @property
+    def next(self):
+        return self.neighbour(1)
+
 
 
 class Chan(Base):
@@ -60,7 +76,7 @@ class Chan(Base):
         self.name = name
 
     def _make_logfile(self, path, date):
-        l = LogFile(self.fs, path)
+        l = LogFile(self.fs, path, date)
         l.__name__ = date
         l.__parent__ = self
         return l
@@ -72,12 +88,15 @@ class Chan(Base):
             return self._make_logfile(nextpath, date)
 
     def __iter__(self):
-        for name in self.fs.listdir(self.path):
+        for name in sorted(self.fs.listdir(self.path)):
             if name.startswith(self.name):
                 path = self.fs.join(self.path, name)
                 if self.fs.isrealfile(path):
                     date = name.rsplit('.', 2)[1]
                     yield self._make_logfile(path, date)
+
+    def last(self, n):
+        return list(self)[:-n-1:-1]
 
 
 class Directory(Base):
