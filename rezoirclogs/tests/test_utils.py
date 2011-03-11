@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import unittest
+from rezoirclogs.tests.import_unittest import unittest
 
 
 class ConvertUnknowEncodingTests(unittest.TestCase):

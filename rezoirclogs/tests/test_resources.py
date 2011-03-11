@@ -1,4 +1,4 @@
-import unittest
+from rezoirclogs.tests.import_unittest import unittest
 
 class BaseTests(unittest.TestCase):
     def testRepr(self):
