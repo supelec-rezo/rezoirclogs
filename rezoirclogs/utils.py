@@ -4,7 +4,7 @@ def convert_unknow_encoding(text):
         t = text.decode('utf-8')
     except UnicodeDecodeError:
         t = text.decode('latin-1')
-    return t.encode('utf-8')
+    return t
 
 
 class Line(object):

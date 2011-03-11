@@ -4,25 +4,26 @@ from rezoirclogs.tests.import_unittest import unittest
 
 class ConvertUnknowEncodingTests(unittest.TestCase):
     def setUp(self):
+        self.unicode = u'pâté'
         self.utf = 'p\xc3\xa2t\xc3\xa9'
         self.latin = 'p\xe2t\xe9'
 
     def test_utf8(self):
         from rezoirclogs.utils import convert_unknow_encoding
-        self.assertEqual(self.utf, convert_unknow_encoding(self.utf))
+        self.assertEqual(self.unicode, convert_unknow_encoding(self.utf))
 
     def test_latin(self):
         from rezoirclogs.utils import convert_unknow_encoding
-        self.assertEqual(self.utf, convert_unknow_encoding(self.latin))
+        self.assertEqual(self.unicode, convert_unknow_encoding(self.latin))
 
 
 class ParseLogLineTests(unittest.TestCase):
     def test_normal(self):
         from rezoirclogs.utils import parse_log_line, NormalMessage
-        line = "02:16 <ciblout> je suis secretaire, c'est moi qui décide"
+        line = "02:16 <ciblout> je suis secretaire, c'est moi qui decide"
         m = parse_log_line(line)
         self.assertIsInstance(m, NormalMessage)
-        self.assertEqual(m.message, "je suis secretaire, c'est moi qui décide")
+        self.assertEqual(m.message, "je suis secretaire, c'est moi qui decide")
         self.assertEqual(m.user, 'ciblout')
         self.assertEqual(m.time, '02:16')
         self.assertEqual(m.text, line)
@@ -51,10 +52,10 @@ class ParseLogLineTests(unittest.TestCase):
 
     def test_status(self):
         from rezoirclogs.utils import parse_log_line, StatusMessage
-        line = "01:56 -!- ciblout [cyprien@mauvaise.fois] has quit [Quit: Bon débaras.]"
+        line = "01:56 -!- ciblout [cyprien@mauvaise.fois] has quit [Quit: Bon debaras.]"
         m = parse_log_line(line)
         self.assertIsInstance(m, StatusMessage)
-        self.assertEqual(m.message, "[cyprien@mauvaise.fois] has quit [Quit: Bon débaras.]")
+        self.assertEqual(m.message, "[cyprien@mauvaise.fois] has quit [Quit: Bon debaras.]")
         self.assertEqual(m.user, 'ciblout')
         self.assertEqual(m.time, '01:56')
         self.assertEqual(m.text, line)
