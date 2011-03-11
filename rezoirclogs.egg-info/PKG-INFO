@@ -1,18 +1,25 @@
 Metadata-Version: 1.0
 Name: rezoirclogs
-Version: 0.0
+Version: 1.0
 Summary: rezoirclogs
 Home-page: UNKNOWN
 Author: UNKNOWN
 Author-email: UNKNOWN
 License: UNKNOWN
-Description: rezoirclogs README
+Description: Salut, c'est on vieux préféré.
+        
+        J'avais envie de tester pyramid, et puis les tests sous python, alors j'ai codé ça.
+        
+        J'espère que ça te pourira pas trop la vie.
+        
+        Amuse toi bien.
+        
+        -- Madjar
         
         
         
         
-        
-        0.0
+        1.0
         ---
         
         -  Initial version
