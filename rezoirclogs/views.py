@@ -20,7 +20,7 @@ def logfile(context, request):
     lines = list(context)
     for i, line in enumerate(lines):
         if hasattr(line, 'time'):
-            line.anchor = '%s.%s'%(i, line.time)
+            line.anchor = '%s' % i
             line.anchorlink = resource_url(context, request, anchor = line.anchor)
 
     for rang in request.GET.getall('range'):
