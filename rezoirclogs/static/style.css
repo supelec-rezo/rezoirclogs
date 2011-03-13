@@ -15,3 +15,7 @@ li.chan {
     float: left;
     margin: 0 20px;
 }
+
+.highlighted{
+    background-color: #FFA858;
+}

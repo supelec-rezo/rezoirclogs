@@ -22,4 +22,15 @@ def logfile(context, request):
         if hasattr(line, 'time'):
             line.anchor = '%s.%s'%(i, line.time)
             line.anchorlink = resource_url(context, request, anchor = line.anchor)
+
+    for rang in request.GET.getall('range'):
+        try:
+            fro, to = map(int, rang.split('-'))
+            for i in range(fro, to):
+                lines[i].highlighted = True
+        except ValueError:
+            pass
+        except KeyError:
+            pass
+    
     return {'lines': lines, 'context': context}
