@@ -1,3 +1,9 @@
+1.1
+---
+
+- Simplification des ancres.
+- Supporte du paramètre GET 'range' pour surligner un intervalle.
+
 1.0
 ---
 

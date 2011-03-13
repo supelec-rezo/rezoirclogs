@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: rezoirclogs
-Version: 1.0
+Version: 1.1
 Summary: rezoirclogs
 Home-page: UNKNOWN
 Author: UNKNOWN
@@ -18,6 +18,12 @@ Description: Salut, c'est on vieux préféré.
         
         
         
+        
+        1.1
+        ---
+        
+        - Simplification des ancres.
+        - Supporte du paramètre GET 'range' pour surligner un intervalle.
         
         1.0
         ---
