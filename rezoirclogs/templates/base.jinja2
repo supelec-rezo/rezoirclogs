@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 <head>
     {% block head %}
-    <link rel="stylesheet" href="/static/style.css" />
+    <link rel="stylesheet" href="{{ request.static_url('rezoirclogs:static/style.css') }}" />
     <title>{% block title %}{% endblock %} - Logs IRC</title>
     {% endblock %}
 </head>
