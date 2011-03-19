@@ -2,7 +2,6 @@ from pyramid.view import view_config
 from pyramid.url import resource_url
 
 from rezoirclogs.resources import Directory, Chan, LogFile
-from rezoirclogs.utils import Message
 
 
 @view_config(context=Directory, renderer='directory.jinja2')
@@ -30,7 +29,7 @@ def logfile(context, request):
                 lines[i].highlighted = True
         except ValueError:
             pass
-        except KeyError:
+        except IndexError:
             pass
     
     return {'lines': lines, 'context': context}

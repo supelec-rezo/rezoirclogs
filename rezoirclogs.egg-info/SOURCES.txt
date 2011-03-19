@@ -26,3 +26,4 @@ rezoirclogs/tests/__init__.py
 rezoirclogs/tests/import_unittest.py
 rezoirclogs/tests/test_resources.py
 rezoirclogs/tests/test_utils.py
+rezoirclogs/tests/test_views.py
