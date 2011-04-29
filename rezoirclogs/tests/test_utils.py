@@ -18,59 +18,71 @@ class ConvertUnknowEncodingTests(unittest2.TestCase):
 
 
 class ParseLogLineTests(unittest2.TestCase):
+    def _get_FUT(self, *args, **kwargs):
+        from rezoirclogs.utils import LogLine
+        return LogLine(*args, **kwargs)
+
+    def test_lazy(self):
+        line = "02:16 <ciblout> I'm sooo lazy"
+        m = self._get_FUT(line)
+        self.assertEqual(str(m), line)
+        assert 'type' in dir(m), "LogFile object has attribute type" # because hasattr calls the method
+        self.assertFalse(hasattr(m, 'message'))
+        self.assertFalse(hasattr(m, 'user'))
+        self.assertFalse(hasattr(m, 'time'))
+
+        t = m.type
+        self.assertEqual(t, "normal")
+        self.assertTrue(hasattr(m, 'message'))
+        self.assertTrue(hasattr(m, 'user'))
+        self.assertTrue(hasattr(m, 'time'))
+
     def test_normal(self):
-        from rezoirclogs.utils import parse_log_line, NormalMessage
         line = "02:16 <ciblout> je suis secretaire, c'est moi qui decide"
-        m = parse_log_line(line)
-        self.assertIsInstance(m, NormalMessage)
+        m = self._get_FUT(line)
+        self.assertEqual(m.type, "normal")
         self.assertEqual(m.message, "je suis secretaire, c'est moi qui decide")
         self.assertEqual(m.user, 'ciblout')
         self.assertEqual(m.time, '02:16')
-        self.assertEqual(m.text, line)
+        self.assertEqual(str(m), line)
 
     def test_normal_empty(self):
-        from rezoirclogs.utils import parse_log_line, NormalMessage
-        m = parse_log_line("02:16 <ciblout>")
-        self.assertIsInstance(m, NormalMessage)
+        m = self._get_FUT("02:16 <ciblout>")
+        self.assertEqual(m.type, "normal")
         self.assertEqual(m.message, "")
 
     def test_me(self):
-        from rezoirclogs.utils import parse_log_line, MeMessage
         line = "02:16  * ciblout dit encore des conneries"
-        m = parse_log_line(line)
-        self.assertIsInstance(m, MeMessage)
+        m = self._get_FUT(line)
+        self.assertEqual(m.type, "me")
         self.assertEqual(m.message, "dit encore des conneries")
         self.assertEqual(m.user, 'ciblout')
         self.assertEqual(m.time, '02:16')
-        self.assertEqual(m.text, line)
+        self.assertEqual(str(m), line)
 
     def test_me_empty(self):
-        from rezoirclogs.utils import parse_log_line, MeMessage
-        m = parse_log_line("02:16  * ciblout")
-        self.assertIsInstance(m, MeMessage)
+        m = self._get_FUT("02:16  * ciblout")
+        self.assertEqual(m.type, "me")
         self.assertEqual(m.message, "")
 
     def test_status(self):
-        from rezoirclogs.utils import parse_log_line, StatusMessage
         line = "01:56 -!- ciblout [cyprien@mauvaise.fois] has quit [Quit: Bon debaras.]"
-        m = parse_log_line(line)
-        self.assertIsInstance(m, StatusMessage)
+        m = self._get_FUT(line)
+        self.assertEqual(m.type, "status")
         self.assertEqual(m.message, "[cyprien@mauvaise.fois] has quit [Quit: Bon debaras.]")
         self.assertEqual(m.user, 'ciblout')
         self.assertEqual(m.time, '01:56')
-        self.assertEqual(m.text, line)
+        self.assertEqual(str(m), line)
 
     def test_status_empty(self):
-        from rezoirclogs.utils import parse_log_line, StatusMessage
-        m = parse_log_line("01:56 -!- ciblout ")
-        self.assertIsInstance(m, StatusMessage)
+        m = self._get_FUT("01:56 -!- ciblout ")
+        self.assertEqual(m.type, "status")
         self.assertEqual(m.message, "")
 
     def test_unrecognized(self):
-        from rezoirclogs.utils import parse_log_line, UnrecognizedLine
-        m = parse_log_line("Ceci n'est pas une ligne de log")
-        self.assertIsInstance(m, UnrecognizedLine)
-        self.assertEqual(m.text, "Ceci n'est pas une ligne de log")
+        m = self._get_FUT("Ceci n'est pas une ligne de log")
+        self.assertEqual(m.type, "unrecognized")
+        self.assertEqual(str(m), "Ceci n'est pas une ligne de log")
 
 
 class ColorationTests(unittest2.TestCase):

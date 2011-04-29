@@ -1,3 +1,4 @@
+from pyramid.decorator import reify
 import re
 from jinja2 import Markup
 
@@ -9,70 +10,48 @@ def convert_unknow_encoding(text):
     return t
 
 
-class Line(object):
-    type = 'line'
-    text = ''
+class LogLine(unicode):
+    '''
+    The log line informations are populated when the 'type' attribute is accessed.
+    This way, LogLine is lazy and can be used as a normal string in other cases.
+    '''
+    def __new__(cls, value):
+        return unicode.__new__(cls, convert_unknow_encoding(value))
 
+    @reify
+    def type(self):
+        # Shamefully stolen from the old code. It's ugly.
+        s = self.split(None, 2)
 
-class UnrecognizedLine(Line):
-    type = 'unrecognized'
+        if s[1][0] == '<': #Message
+            self.time = s[0]
+            self.user = s[1][1:-1]
+            if len(s) == 3:
+                self.message = s[2]
+            else: #No message, so no split
+                self.message = ""
+            return 'normal'
+        elif s[1] == '*': #/me
+            s = self.split(None, 3)
+            self.time = s[0]
+            self.user = s[2]
+            try:
+                self.message = s[3]
+            except IndexError:
+                self.message = ''
+            return 'me'
+        elif s[1] == '-!-':
+            s = self.split(None, 3)
+            self.time = s[0]
+            self.user = s[2]
+            try:
+                self.message = s[3]
+            except IndexError:
+                self.message = ''
+            return 'status'
 
-
-class Message(Line):
-    type = 'message'
-    message = ''
-    user = ''
-    time = ''
-
-
-class NormalMessage(Message):
-    type = 'normal'
-
-
-class MeMessage(Message):
-    type = 'me'
-
-
-class StatusMessage(Message):
-    type = 'status'
-
-
-def parse_log_line(line):
-    # Shamefully stolen from the old code. It's ugly.
-    line = convert_unknow_encoding(line)
-    s = line.split(None, 2)
-
-    if s[1][0] == '<': #Message
-        m = NormalMessage()
-        m.time = s[0]
-        m.user = s[1][1:-1]
-        if len(s) == 3:
-            m.message = s[2]
-        else: #No message, so no split
-            m.message = ""
-    elif s[1] == '*': #/me
-        m = MeMessage()
-        s = line.split(None, 3)
-        m.time = s[0]
-        m.user = s[2]
-        try:
-            m.message = s[3]
-        except IndexError:
-            m.message = ''
-    elif s[1] == '-!-':
-        m = StatusMessage()
-        s = line.split(None, 3)
-        m.time = s[0]
-        m.user = s[2]
-        try:
-            m.message = s[3]
-        except IndexError:
-            m.message = ''
-
-    else: #autre
-        m = UnrecognizedLine()
-    m.text = line
-    return m
+        else: #autre
+            return 'unrecognized'
 
 
 class ColorPool(object):

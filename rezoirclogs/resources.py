@@ -1,7 +1,7 @@
 from functools import wraps
 import os
 import datetime
-from rezoirclogs.utils import parse_log_line
+from rezoirclogs.utils import LogLine
 
 
 class Base(object):
@@ -52,7 +52,7 @@ class LogFile(Base):
 
     def __iter__(self):
         for line in self.fs.open(self.path):
-            yield parse_log_line(line)
+            yield LogLine(line)
 
     def neighbour(self, n):
         wanted = self.date + datetime.timedelta(days = n)

@@ -71,12 +71,11 @@ class LogFileTests(unittest2.TestCase):
 01:48 * ciblout mange une pomme""".split('\n')
 
         from rezoirclogs.resources import LogFile
-        from rezoirclogs.utils import NormalMessage, MeMessage, StatusMessage
         logfile = LogFile(Fs(), '', '20100409')
         l = list(logfile)
-        self.assertIsInstance(l[0], StatusMessage)
-        self.assertIsInstance(l[1], NormalMessage)
-        self.assertIsInstance(l[2], MeMessage)
+        self.assertEqual(l[0].type, 'status')
+        self.assertEqual(l[1].type, 'normal')
+        self.assertEqual(l[2].type, 'me')
 
 
 class ChanTests(unittest2.TestCase):

@@ -3,6 +3,7 @@ DEV
 
 - Supprimé le filtre custom ``handle_url``, parce que jinja2 fournit déjà ``urlize``.
     Pensez à le supprimer de votre fichier de config
+- Remplacement de la méthode ``parse_log_line`` par une classe ``LogLine``, qui se comporte comme une unicode string et qui est identifiée de manière fénéante quand on accède à l'attribut ``type``.
 
 1.1
 ---
