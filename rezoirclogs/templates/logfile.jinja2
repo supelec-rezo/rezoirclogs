@@ -12,9 +12,9 @@
             <a href="{{ line.anchorlink }}" name="{{ line.anchor }}" class="time">{{ line.time }}</a>
         {% endif %}
         {% if line.type == 'normal' %}
-            <b>&lt;{{ line.user | colored }}&gt;</b> {{ line.message | handle_url }}
+            <b>&lt;{{ line.user | colored }}&gt;</b> {{ line.message | urlize }}
             {% elif line.type == 'me' %}
-            * <b>{{ line.user | colored}}</b> {{ line.message | handle_url}}
+            * <b>{{ line.user | colored}}</b> {{ line.message | urlize}}
             {% elif line.type == 'status' %}
             -!- <b>{{ line.user | colored }}</b> {{ line.message }}
         {% else %}

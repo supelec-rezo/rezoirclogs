@@ -103,21 +103,3 @@ _url_pattern = [
         (re.compile(r"((^|\b)www\.([-A-Za-z0-9+&@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&@#/%=~_()|]))"),
          Markup(r'<a href="http://%(url)s">%(url)s</a>'))
 ]
-
-def handle_url(message):
-    words = Markup.escape(message).split(' ')
-    replaced = False
-    for i, word in enumerate(words):
-        for (pattern, sub) in _url_pattern:
-            try:
-                url = pattern.findall(word)[0][0]
-                words[i] = word.replace(url, sub%{'url': url})
-                replaced = True
-                break
-            except IndexError:
-                pass
-
-    if replaced:
-        return Markup(' ').join(words)
-    else:
-        return message

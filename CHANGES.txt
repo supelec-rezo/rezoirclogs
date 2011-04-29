@@ -1,3 +1,9 @@
+DEV
+---
+
+- Supprimé le filtre custom ``handle_url``, parce que jinja2 fournit déjà ``urlize``.
+    Pensez à le supprimer de votre fichier de config
+
 1.1
 ---
 
