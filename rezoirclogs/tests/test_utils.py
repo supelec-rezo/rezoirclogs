@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from rezoirclogs.tests.import_unittest import unittest
+import unittest2
 
 
-class ConvertUnknowEncodingTests(unittest.TestCase):
+class ConvertUnknowEncodingTests(unittest2.TestCase):
     def setUp(self):
         self.unicode = u'pâté'
         self.utf = 'p\xc3\xa2t\xc3\xa9'
@@ -17,7 +17,7 @@ class ConvertUnknowEncodingTests(unittest.TestCase):
         self.assertEqual(self.unicode, convert_unknow_encoding(self.latin))
 
 
-class ParseLogLineTests(unittest.TestCase):
+class ParseLogLineTests(unittest2.TestCase):
     def test_normal(self):
         from rezoirclogs.utils import parse_log_line, NormalMessage
         line = "02:16 <ciblout> je suis secretaire, c'est moi qui decide"
@@ -73,14 +73,14 @@ class ParseLogLineTests(unittest.TestCase):
         self.assertEqual(m.text, "Ceci n'est pas une ligne de log")
 
 
-class ColorationTests(unittest.TestCase):
+class ColorationTests(unittest2.TestCase):
     def test_colored(self):
         from jinja2 import Markup
         from rezoirclogs.utils import colored
         self.assertEqual(colored('madjar'), Markup(u'<span style="color:#3176B3">madjar</span>'))
 
 
-class UrlHandlerTests(unittest.TestCase):
+class UrlHandlerTests(unittest2.TestCase):
     def test_without_url(self):
         from rezoirclogs.utils import handle_url
         self.assertEqual(handle_url('hello, world'), 'hello, world')

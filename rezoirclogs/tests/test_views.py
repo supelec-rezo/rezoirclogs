@@ -1,9 +1,9 @@
 from pyramid import testing
 from webob.multidict import MultiDict
-from rezoirclogs.tests.import_unittest import unittest
+import unittest2
 
 
-class DirectoryViewTests(unittest.TestCase):
+class DirectoryViewTests(unittest2.TestCase):
     def test_view(self):
         from rezoirclogs.views import directory
         ressource = object()
@@ -12,7 +12,7 @@ class DirectoryViewTests(unittest.TestCase):
         self.assertEqual(ressource, response['dir'])
 
 
-class ChanViewTests(unittest.TestCase):
+class ChanViewTests(unittest2.TestCase):
     def test_view(self):
         from rezoirclogs.views import chan
         ressource = object()
@@ -21,7 +21,7 @@ class ChanViewTests(unittest.TestCase):
         self.assertEqual(ressource, response['chan'])
 
 
-class LogFileTests(unittest.TestCase):
+class LogFileTests(unittest2.TestCase):
     def _get_request(self):
         request = testing.DummyRequest()
         request.GET = MultiDict()
@@ -71,6 +71,7 @@ class LogFileTests(unittest.TestCase):
 
 class DummyObject(object):
     pass
+
 
 class DummyIterable(object):
     def __init__(self, value):

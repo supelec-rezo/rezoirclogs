@@ -1,13 +1,15 @@
-from rezoirclogs.tests.import_unittest import unittest
+import unittest2
 
-class BaseTests(unittest.TestCase):
+
+class BaseTests(unittest2.TestCase):
     def testRepr(self):
         from rezoirclogs.resources import Base
         b = Base()
         b.__name__ = "belong to us"
         self.assertEqual(repr(b), '<Base: belong to us>')
 
-class FilesystemTests(unittest.TestCase):
+
+class FilesystemTests(unittest2.TestCase):
     def _make_one(self, *arg, **kw):
         from rezoirclogs.resources import Filesystem
         return Filesystem(*arg, **kw)
@@ -60,7 +62,7 @@ class FilesystemTests(unittest.TestCase):
         f.close()
 
 
-class LogFileTests(unittest.TestCase):
+class LogFileTests(unittest2.TestCase):
     def test_iter(self):
         class Fs(object):
                 def open(self, path):
@@ -77,10 +79,10 @@ class LogFileTests(unittest.TestCase):
         self.assertIsInstance(l[2], MeMessage)
 
 
-class ChanTests(unittest.TestCase):
+class ChanTests(unittest2.TestCase):
     def _make_one(self):
         from rezoirclogs.resources import Chan
-        fs = DummyFilesystem(files = ('/foo/#tagada.20100203.log', '/foo/#tagada.20100204.log'))
+        fs = DummyFilesystem(files=('/foo/#tagada.20100203.log', '/foo/#tagada.20100204.log'))
         return Chan(fs, '/foo', '#tagada')
 
     def test_get_item(self):
@@ -121,11 +123,11 @@ class ChanTests(unittest.TestCase):
         self.assertEqual(l[1].__name__, '20100203')
 
 
-class DirectoryTests(unittest.TestCase):
+class DirectoryTests(unittest2.TestCase):
     def _make_one(self):
         from rezoirclogs.resources import Directory
-        fs = DummyFilesystem(files = ('/foo/#tagada.20100203.log', '/foo/#tagada.20100204.log', '/foo/spam'),
-                             dirs = ('/foo/bar',))
+        fs = DummyFilesystem(files=('/foo/#tagada.20100203.log', '/foo/#tagada.20100204.log', '/foo/spam'),
+                             dirs=('/foo/bar',))
         return Directory(fs, '/foo')
 
     def test_get_dir(self):
@@ -136,7 +138,6 @@ class DirectoryTests(unittest.TestCase):
         self.assertEqual(sub.path, '/foo/bar')
         self.assertEqual(sub.__name__, 'bar')
         self.assertEqual(sub.__parent__, dir)
-        
 
     def test_get_chan(self):
         from rezoirclogs.resources import Chan
@@ -181,7 +182,7 @@ class DirectoryTests(unittest.TestCase):
 
 class DummyFilesystem(object):
     import os
-    
+
     def __init__(self, files=(), dirs=()):
         self.files = files
         self.dirs = dirs

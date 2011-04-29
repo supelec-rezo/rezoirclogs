@@ -26,7 +26,7 @@ setup(name='rezoirclogs',
       include_package_data=True,
       zip_safe=False,
       install_requires=requires,
-      tests_require=requires,
+      tests_require=requires + ['unittest2'],
       test_suite="rezoirclogs",
       entry_points = """\
       [paste.app_factory]
