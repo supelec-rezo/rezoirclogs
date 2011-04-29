@@ -1,4 +1,4 @@
-Salut, c'est on vieux préféré.
+Salut, c'est ton vieux préféré.
 
 J'avais envie de tester pyramid, et puis les tests sous python, alors j'ai codé ça.
 
