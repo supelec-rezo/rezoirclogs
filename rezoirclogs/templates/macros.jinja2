@@ -1,0 +1,11 @@
+{% macro display_line(line) -%}
+    {% if line.type == 'normal' -%}
+        <b>&lt;{{ line.user | colored }}&gt;</b> {{ line.message | urlize }}
+        {%- elif line.type == 'me' -%}
+        * <b>{{ line.user | colored}}</b> {{ line.message | urlize}}
+        {%- elif line.type == 'status' -%}
+        -!- <b>{{ line.user | colored }}</b> {{ line.message }}
+    {%- else -%}
+        {{ line.text }}
+    {%- endif -%}
+{%- endmacro %}

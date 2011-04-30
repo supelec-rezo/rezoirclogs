@@ -1,0 +1,18 @@
+{% extends "base.jinja2" %}
+{% from 'macros.jinja2' import display_line %}
+
+{% block title %}Search results for {{ query }}{% endblock %}
+
+{% block content %}
+    {% for grouper, list in results|groupby('date') -%}
+        <p>
+            {{ grouper }}<br/>
+            {% for line in list -%}
+                <div>
+            <a href="{{ line.anchorlink }}" class="time">{{ line.time }}</a>
+            {{ display_line(line) }}
+                </div>
+            {%- endfor %}
+        </p>
+    {%- endfor %}
+{% endblock %}

@@ -69,6 +69,22 @@ class LogFileTests(unittest2.TestCase):
             self.assertFalse(hasattr(obj, 'highlighted'))
 
 
+class SearchTests(unittest2.TestCase):
+    def test_search(self):
+        from rezoirclogs.views import search
+        obj = DummyObject()
+        obj.__parent__ = None
+        obj.__name__ = ''
+        obj.search = lambda x: [(obj, 42, DummyObject())]
+        request = testing.DummyRequest()
+        request.GET['query'] = 'lala'
+        response = search(obj, request)
+        self.assertEqual(len(response['results']), 1)
+        self.assertEqual(response['results'][0].anchorlink,
+                         'http://example.com/#42')
+        self.assertEqual(response['query'], 'lala')
+
+
 class DummyObject(object):
     type = ''
 

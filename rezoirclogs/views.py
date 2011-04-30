@@ -32,5 +32,22 @@ def logfile(context, request):
             pass
         except IndexError:
             pass
-    
+
     return {'lines': lines, 'context': context}
+
+
+@view_config(name='search', renderer='search.jinja2')
+def search(context, request):
+    # TODO return to context if no query given
+    query = request.GET['query']
+    search_results = context.search(query)
+
+    results = []
+    for line in search_results:
+        line[2].anchorlink = resource_url(line[0], request, anchor = str(line[1]))
+        line[2].type
+        line[2].date = line[0].date
+        results.append(line[2])
+
+    return dict(results=results,
+                query=query)
