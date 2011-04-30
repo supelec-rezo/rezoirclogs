@@ -29,7 +29,7 @@ class LogFileTests(unittest2.TestCase):
 
     def test_basic(self):
         from rezoirclogs.views import logfile
-        context = DummyIterable(range(3))
+        context = DummyIterable([DummyObject() for i in range(3)])
         request = self._get_request()
         result = logfile(context, request)
         self.assertEqual(result['context'], context)
@@ -70,7 +70,7 @@ class LogFileTests(unittest2.TestCase):
 
 
 class DummyObject(object):
-    pass
+    type = ''
 
 
 class DummyIterable(object):
