@@ -1,4 +1,5 @@
 from functools import wraps
+import itertools
 import os
 import datetime
 from rezoirclogs.utils import LogLine
@@ -55,7 +56,7 @@ class LogFile(Base):
             yield LogLine(line)
 
     def neighbour(self, n):
-        wanted = self.date + datetime.timedelta(days = n)
+        wanted = self.date + datetime.timedelta(days=n)
         wanted = wanted.strftime('%Y%m%d')
         return self.__parent__[wanted]
 
@@ -67,6 +68,10 @@ class LogFile(Base):
     def next(self):
         return self.neighbour(1)
 
+    def search(self, query):
+        for line in self:
+            if query in line:
+                yield line
 
 
 class Chan(Base):
@@ -97,6 +102,11 @@ class Chan(Base):
 
     def last(self, n):
         return list(self)[:-n-1:-1]
+
+    def search(self, query):
+        for logfile in self:
+            for result in logfile.search(query):
+                yield result
 
 
 class Directory(Base):
@@ -142,3 +152,8 @@ class Directory(Base):
 
     def __iter__(self):
         return self.dirs
+
+    def search(self, query):
+        for sub in itertools.chain(self.dirs, self.chans):
+            for result in sub.search(query):
+                yield result

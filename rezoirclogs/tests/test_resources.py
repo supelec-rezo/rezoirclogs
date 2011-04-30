@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import unittest2
 
 
@@ -177,6 +178,29 @@ class DirectoryTests(unittest2.TestCase):
     def test_iter(self):
         dir = self._make_one()
         self.assertEqual(len(list(dir.dirs)), len(list(dir)))
+
+
+class SearchTestCase(unittest2.TestCase):
+    def _get_fs(self):
+        fs = DummyFilesystem(files=('/foo/#tagada.20101101.log',))
+        self.dummy_file = ["une ligne à la con", "le mot magique est : flower"]
+        fs.open = lambda path: self.dummy_file
+        return fs
+
+    def test_search_logfile(self):
+        from rezoirclogs.resources import LogFile
+        lf = LogFile(self._get_fs(), 'iamlogfile.log', '20101110')
+        self.assertEqual(list(lf.search("flower")), [self.dummy_file[1]])
+
+    def test_search_chan(self):
+        from rezoirclogs.resources import Chan
+        c = Chan(self._get_fs(), '/foo', '#tagada')
+        self.assertEqual(list(c.search("flower")), [self.dummy_file[1]])
+
+    def test_search_directory(self):
+        from rezoirclogs.resources import Directory
+        d = Directory(self._get_fs(), '/foo')
+        self.assertEqual(list(d.search("flower")), [self.dummy_file[1]])
 
 
 class DummyFilesystem(object):
