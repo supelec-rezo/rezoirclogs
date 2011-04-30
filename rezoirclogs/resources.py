@@ -58,7 +58,10 @@ class LogFile(Base):
     def neighbour(self, n):
         wanted = self.date + datetime.timedelta(days=n)
         wanted = wanted.strftime('%Y%m%d')
-        return self.__parent__[wanted]
+        try:
+            return self.__parent__[wanted]
+        except KeyError:
+            return
 
     @property
     def previous(self):
@@ -91,6 +94,7 @@ class Chan(Base):
         nextpath = self.fs.join(self.path, name)
         if self.fs.isrealfile(nextpath):
             return self._make_logfile(nextpath, date)
+        raise KeyError(date)
 
     def __iter__(self):
         for name in sorted(self.fs.listdir(self.path)):
