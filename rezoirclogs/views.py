@@ -18,6 +18,7 @@ def chan(context, request):
 def logfile(context, request):
     lines = list(context)
     for i, line in enumerate(lines):
+        line.type # to force the computation
         if hasattr(line, 'time'):
             line.anchor = '%s' % i
             line.anchorlink = resource_url(context, request, anchor = line.anchor)
