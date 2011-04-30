@@ -187,20 +187,33 @@ class SearchTestCase(unittest2.TestCase):
         fs.open = lambda path: self.dummy_file
         return fs
 
+    def _check_result(self, result):
+        self.assertEqual(len(result), 1)
+
+        logfile, position, line = result[0]
+        self.assertEqual(line, self.dummy_file[1])
+        self.assertEqual(position, 1)
+
     def test_search_logfile(self):
         from rezoirclogs.resources import LogFile
-        lf = LogFile(self._get_fs(), 'iamlogfile.log', '20101110')
-        self.assertEqual(list(lf.search("flower")), [self.dummy_file[1]])
+        lf = LogFile(self._get_fs(), '#tagada.20101101.log', '20101101')
+        result = list(lf.search("flower"))
+        self._check_result(result)
 
     def test_search_chan(self):
         from rezoirclogs.resources import Chan
         c = Chan(self._get_fs(), '/foo', '#tagada')
-        self.assertEqual(list(c.search("flower")), [self.dummy_file[1]])
+        result = list(c.search("flower"))
+        self._check_result(result)
+        self.assertEqual(result[0][0].__name__, '20101101')
 
     def test_search_directory(self):
         from rezoirclogs.resources import Directory
         d = Directory(self._get_fs(), '/foo')
-        self.assertEqual(list(d.search("flower")), [self.dummy_file[1]])
+        result = list(d.search("flower"))
+        self._check_result(result)
+        self.assertEqual(result[0][0].__name__, '20101101')
+        self.assertEqual(result[0][0].__parent__.__name__, '#tagada')
 
 
 class DummyFilesystem(object):

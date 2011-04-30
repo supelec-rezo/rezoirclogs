@@ -69,9 +69,9 @@ class LogFile(Base):
         return self.neighbour(1)
 
     def search(self, query):
-        for line in self:
+        for num, line in enumerate(self):
             if query in line:
-                yield line
+                yield (self, num, line)
 
 
 class Chan(Base):
