@@ -1,7 +1,6 @@
 import datetime
-from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
-from pyramid.url import resource_url, model_url
+from pyramid.url import resource_url
 import colander
 from deform import Form
 from deform.exception import ValidationFailure
