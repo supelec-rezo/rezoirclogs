@@ -44,11 +44,10 @@ class Search(colander.MappingSchema):
     after_date = colander.SchemaNode(colander.Date(), title='Search after the date',
                                      missing=None, default=(datetime.date.today() - datetime.timedelta(30)))
 
-search_form = Form(Search(), action='search', buttons=('search',))
-
 
 @view_config(name='search', renderer='search.jinja2')
 def search(context, request):
+    search_form = Form(Search(), action='search', buttons=('search',))
     if 'search' in request.POST:
         try:
             appstruct = search_form.validate(request.POST.items())
