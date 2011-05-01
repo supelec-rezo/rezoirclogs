@@ -71,7 +71,9 @@ class LogFile(Base):
     def next(self):
         return self.neighbour(1)
 
-    def search(self, query):
+    def search(self, query, after_date=None):
+        if after_date and after_date > self.date:
+            return
         for num, line in enumerate(self):
             if query in line:
                 yield (self, num, line)
@@ -107,9 +109,9 @@ class Chan(Base):
     def last(self, n):
         return list(self)[:-n-1:-1]
 
-    def search(self, query):
+    def search(self, query, after_date=None):
         for logfile in self:
-            for result in logfile.search(query):
+            for result in logfile.search(query, after_date):
                 yield result
 
 
@@ -157,7 +159,7 @@ class Directory(Base):
     def __iter__(self):
         return self.dirs
 
-    def search(self, query):
+    def search(self, query, after_date=None):
         for sub in itertools.chain(self.dirs, self.chans):
-            for result in sub.search(query):
+            for result in sub.search(query, after_date):
                 yield result

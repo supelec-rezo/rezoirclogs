@@ -4,6 +4,19 @@
 {% block title %}Search results for {{ query }}{% endblock %}
 
 {% block content %}
+    {% set name = context.__name__ or '/' %}
+    {% if form %}
+        <h2>Search in {{ name }}</h2>
+        <p><a href="{{ context|model_url }}">Back to {{ name }}</a></p>
+    {{ form|safe }}
+<script type="text/javascript">
+   deform.load()
+</script>
+    {% endif %}
+
+    {% if results %}
+        <h2>Search results for {{ query }} in {{ name }}</h2>
+        <p><a href="{{ context|model_url }}">Back to {{ name }}</a></p>
     {% for grouper, list in results|groupby('date') -%}
         <p>
             {{ grouper }}<br/>
@@ -15,4 +28,5 @@
             {%- endfor %}
         </p>
     {%- endfor %}
+    {% endif %}
 {% endblock %}

@@ -17,5 +17,6 @@ def main(global_config, **settings):
     config.include('pyramid_jinja2')
     config.scan()
     config.add_static_view('static', 'rezoirclogs:static')
+    config.add_static_view('static_form', 'deform:static')
     return config.make_wsgi_app()
 

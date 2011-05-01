@@ -13,6 +13,8 @@
         <a href="{{ dir.__parent__ | model_url }}">..</a>
     {% endif %}
 
+    <p><a href="{{ context|model_url('search') }}">Search</a></p>
+
     {% for subdir in dir %}
         {% if loop.first %}
             <ul>

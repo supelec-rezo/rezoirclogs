@@ -215,6 +215,13 @@ class SearchTestCase(unittest2.TestCase):
         self.assertEqual(result[0][0].__name__, '20101101')
         self.assertEqual(result[0][0].__parent__.__name__, '#tagada')
 
+    def test_search_logfile_after_date(self):
+        from rezoirclogs.resources import LogFile
+        from datetime import date
+        lf = LogFile(self._get_fs(), '#tagada.20101101.log', '20101101')
+        result = list(lf.search("flower", date(2012,12,12)))
+        self.assertEqual(result, [])
+
 
 class DummyFilesystem(object):
     import os
