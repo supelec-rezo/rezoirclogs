@@ -73,7 +73,9 @@ class SearchTests(unittest2.TestCase):
     def test_search(self):
         from rezoirclogs.views import search
         obj = DummyObject()
-        obj.__parent__ = None
+        parent = DummyObject()
+        parent.__name__ = ''
+        obj.__parent__ = parent
         obj.__name__ = ''
         obj.date = ''
         obj.search = lambda x, y: [(obj, 42, DummyObject())]
