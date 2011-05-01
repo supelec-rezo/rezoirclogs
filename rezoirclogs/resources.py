@@ -3,6 +3,7 @@ import itertools
 import os
 import datetime
 import logging
+from beaker.cache import cache_region
 from rezoirclogs.utils import LogLine
 
 log = logging.getLogger(__name__)
@@ -31,6 +32,7 @@ class Filesystem(object):
 
     join = staticmethod(os.path.join)
 
+    @cache_region('short_term')
     @jailed
     def listdir(self, path):
         log.debug('listdir %s', path)
@@ -49,6 +51,9 @@ class Filesystem(object):
     def open(self, path):
         log.debug('open %s', path)
         return open(path)
+
+    def __str__(self):
+        return '<Filesystem jailed in %s'% self.root_path
 
 
 class LogFile(Base):

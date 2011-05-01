@@ -13,7 +13,12 @@ class BaseTests(unittest2.TestCase):
 class FilesystemTests(unittest2.TestCase):
     def _make_one(self, *arg, **kw):
         from rezoirclogs.resources import Filesystem
+        self._config_cache()
         return Filesystem(*arg, **kw)
+
+    def _config_cache(self):
+        from beaker import cache
+        cache.cache_regions['short_term'] = {}
 
     def test_list_jail(self):
         from os.path import abspath, join, dirname

@@ -1,5 +1,6 @@
 import os
 from pyramid.config import Configurator
+from pyramid_beaker import set_cache_regions_from_settings
 from rezoirclogs.resources import Filesystem, Directory
 
 
@@ -13,6 +14,7 @@ def main(global_config, **settings):
     def get_root(environ):
         return Directory(fs, root)
 
+    set_cache_regions_from_settings(settings)
     config = Configurator(root_factory=get_root, settings=settings)
     config.include('pyramid_jinja2')
     config.scan()
