@@ -1,9 +1,10 @@
-from deform.exception import ValidationFailure
+import datetime
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.url import resource_url, model_url
 import colander
 from deform import Form
+from deform.exception import ValidationFailure
 from rezoirclogs.resources import Directory, Chan, LogFile
 
 
@@ -41,7 +42,8 @@ def logfile(context, request):
 
 class Search(colander.MappingSchema):
     query = colander.SchemaNode(colander.String(), validator = colander.Length(min=3))
-    after_date = colander.SchemaNode(colander.Date(), missing=None, title='Search after the date')
+    after_date = colander.SchemaNode(colander.Date(), title='Search after the date',
+                                     missing=None, default=(datetime.date.today() - datetime.timedelta(30)))
 
 search_form = Form(Search(), action='search', buttons=('search',))
 
