@@ -41,7 +41,7 @@ def logfile(context, request):
 
 class Search(colander.MappingSchema):
     query = colander.SchemaNode(colander.String())
-    after_date = colander.SchemaNode(colander.Date(), missing='None', title='Search after the date')
+    after_date = colander.SchemaNode(colander.Date(), missing=None, title='Search after the date')
 
 search_form = Form(Search(), action='search', buttons=('search',))
 
@@ -63,6 +63,6 @@ def search(context, request):
             line[2].date = line[0].date
             results.append(line[2])
 
-        return dict(context=context, results=results, query=query)
+        return dict(context=context, results=results, query=appstruct['query'])
     else:
         return {'context': context, 'form': search_form.render(), 'resources' : search_form.get_widget_resources()}

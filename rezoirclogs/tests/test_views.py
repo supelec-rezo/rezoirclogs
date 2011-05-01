@@ -69,20 +69,37 @@ class LogFileTests(unittest2.TestCase):
             self.assertFalse(hasattr(obj, 'highlighted'))
 
 
-#class SearchTests(unittest2.TestCase):
-#    def test_search(self):
-#        from rezoirclogs.views import search
-#        obj = DummyObject()
-#        obj.__parent__ = None
-#        obj.__name__ = ''
-#        obj.search = lambda x: [(obj, 42, DummyObject())]
-#        request = testing.DummyRequest()
-#        request.GET['query'] = 'lala'
-#        response = search(obj, request)
-#        self.assertEqual(len(response['results']), 1)
-#        self.assertEqual(response['results'][0].anchorlink,
-#                         'http://example.com/#42')
-#        self.assertEqual(response['query'], 'lala')
+class SearchTests(unittest2.TestCase):
+    def test_search(self):
+        from rezoirclogs.views import search
+        obj = DummyObject()
+        obj.__parent__ = None
+        obj.__name__ = ''
+        obj.date = ''
+        obj.search = lambda x, y: [(obj, 42, DummyObject())]
+        request = testing.DummyRequest()
+        request.POST['query'] = 'lala'
+        request.POST['search'] = True
+        response = search(obj, request)
+        self.assertEqual(len(response['results']), 1)
+        self.assertEqual(response['results'][0].anchorlink,
+                         'http://example.com/#42')
+        self.assertEqual(response['query'], 'lala')
+
+    def test_search_form_with_no_query(self):
+        from rezoirclogs.views import search
+        request = testing.DummyRequest()
+        response = search(None, request)
+        self.assertEqual(response['context'], None)
+        self.assertIn('form', response)
+
+    def test_search_form_with_invalid_query(self):
+        from rezoirclogs.views import search
+        request = testing.DummyRequest()
+        request.POST['search'] = True
+        response = search(None, request)
+        self.assertEqual(response['context'], None)
+        self.assertIn('form', response)
 
 
 class DummyObject(object):

@@ -114,6 +114,7 @@ class ChanTests(unittest2.TestCase):
         second = chan['20100204']
         self.assertEqual(first.next.__name__, second.__name__)
         self.assertEqual(first.__name__, second.previous.__name__)
+        self.assertEqual(first.previous, None)
 
     def test_last(self):
         chan = self._make_one()
