@@ -17,9 +17,11 @@
     {% if results %}
         <h2>Search results for {{ query }} in {{ name }}</h2>
         <p><a href="{{ context|model_url }}">Back to {{ name }}</a></p>
-    {% for grouper, list in results|groupby('date') -%}
+    {% for date, list_for_date in results|groupby('date')|reverse -%}
+        <h3>{{ date }}</h3>
+        {% for chan, list in list_for_date|groupby('chan') -%}
+        <h4>{{ chan }}</h4>
         <p>
-            {{ grouper }}<br/>
             {% for line in list -%}
                 <div>
             <a href="{{ line.anchorlink }}" class="time">{{ line.time }}</a>
@@ -27,6 +29,7 @@
                 </div>
             {%- endfor %}
         </p>
+        {%- endfor %}
     {%- endfor %}
     {% endif %}
     {% if results == [] -%}

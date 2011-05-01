@@ -61,6 +61,7 @@ def search(context, request):
             line[2].anchorlink = resource_url(line[0], request, anchor = str(line[1]))
             line[2].type
             line[2].date = line[0].date
+            line[2].chan = line[0].__parent__.__name__
             results.append(line[2])
 
         return dict(context=context, results=results, query=appstruct['query'])
