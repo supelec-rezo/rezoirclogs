@@ -2,8 +2,10 @@ from functools import wraps
 import itertools
 import os
 import datetime
+import logging
 from rezoirclogs.utils import LogLine
 
+log = logging.getLogger(__name__)
 
 class Base(object):
     """Base resource object, useful for debugging"""
@@ -31,17 +33,21 @@ class Filesystem(object):
 
     @jailed
     def listdir(self, path):
+        log.debug('listdir %s', path)
         return os.listdir(path)
 
     @jailed
     def isrealfile(self, path):
+        log.debug('isrealfile %s', path)
         return os.path.isfile(path) and not os.path.islink(path)
 
     @jailed
     def isrealdir(self, path):
+        log.debug('isrealdir %s', path)
         return os.path.isdir(path) and not os.path.islink(path)
 
     def open(self, path):
+        log.debug('open %s', path)
         return open(path)
 
 
