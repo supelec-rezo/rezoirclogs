@@ -1,4 +1,4 @@
-DEV
+1.2
 ---
 
 - Supprimé le filtre custom ``handle_url``, parce que jinja2 fournit déjà ``urlize``.

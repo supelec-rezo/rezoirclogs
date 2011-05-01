@@ -1,12 +1,12 @@
 Metadata-Version: 1.0
 Name: rezoirclogs
-Version: 1.1
+Version: 1.2
 Summary: rezoirclogs
 Home-page: UNKNOWN
-Author: UNKNOWN
-Author-email: UNKNOWN
+Author: Georges Dubus
+Author-email: georges.dubus@compiletoi.net
 License: UNKNOWN
-Description: Salut, c'est on vieux préféré.
+Description: Salut, c'est ton vieux préféré.
         
         J'avais envie de tester pyramid, et puis les tests sous python, alors j'ai codé ça.
         
@@ -19,6 +19,16 @@ Description: Salut, c'est on vieux préféré.
         
         
         
+        1.2
+        ---
+        
+        - Supprimé le filtre custom ``handle_url``, parce que jinja2 fournit déjà ``urlize``.
+            Pensez à le supprimer de votre fichier de config
+        - Remplacement de la méthode ``parse_log_line`` par une classe ``LogLine``, qui se comporte comme une unicode string et qui est identifiée de manière fénéante quand on accède à l'attribut ``type``.
+        - Un système de recherche dans les logs.
+        - Ajout d'un système de cache. Pensez à l'ajouter dans vote fichier de config.
+        - Diverses améliorations de la navigation.
+        
         1.1
         ---
         
@@ -30,7 +40,7 @@ Description: Salut, c'est on vieux préféré.
         
         -  Initial version
         
-Keywords: web pyramid pylons
+Keywords: web pyramid pylons irc logs
 Platform: UNKNOWN
 Classifier: Programming Language :: Python
 Classifier: Framework :: Pylons
