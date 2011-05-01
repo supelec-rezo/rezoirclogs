@@ -40,7 +40,7 @@ def logfile(context, request):
 
 
 class Search(colander.MappingSchema):
-    query = colander.SchemaNode(colander.String())
+    query = colander.SchemaNode(colander.String(), validator = colander.Length(min=3))
     after_date = colander.SchemaNode(colander.Date(), missing=None, title='Search after the date')
 
 search_form = Form(Search(), action='search', buttons=('search',))
