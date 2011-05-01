@@ -29,4 +29,8 @@
         </p>
     {%- endfor %}
     {% endif %}
+    {% if results == [] -%}
+        <h2>No results for {{ query }} in {{ name }}</h2>
+        <p><a href="{{ context|model_url }}">Back to {{ name }}</a></p>
+    {%- endif %}
 {% endblock %}
