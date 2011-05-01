@@ -4,6 +4,7 @@
 {% block title %}{{ context.__parent__.__name__ }} {{ context.__name__ }}{% endblock %}
 
 {% block content %}
+    <p><a href="{{ context.__parent__ | model_url }}">..</a></p>
     {% set previous = context.previous %}
     {% if previous %}<p><< <a href="{{ previous | model_url }}">{{ previous.date }}</a></p>{% endif %}
 

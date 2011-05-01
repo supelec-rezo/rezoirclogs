@@ -6,6 +6,7 @@ DEV
 - Remplacement de la méthode ``parse_log_line`` par une classe ``LogLine``, qui se comporte comme une unicode string et qui est identifiée de manière fénéante quand on accède à l'attribut ``type``.
 - Un système de recherche dans les logs.
 - Ajout d'un système de cache. Pensez à l'ajouter dans vote fichier de config.
+- Diverses améliorations de la navigation.
 
 1.1
 ---

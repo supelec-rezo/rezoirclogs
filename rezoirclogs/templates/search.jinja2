@@ -17,6 +17,7 @@
     {% if results %}
         <h2>Search results for {{ query }} in {{ name }}</h2>
         <p><a href="{{ context|model_url }}">Back to {{ name }}</a></p>
+        <p><a href="{{ context|model_url('search') }}">Back to search</a></p>
     {% for date, list_for_date in results|groupby('date')|reverse -%}
         <h3>{{ date }}</h3>
         {% for chan, list in list_for_date|groupby('chan') -%}
@@ -35,5 +36,6 @@
     {% if results == [] -%}
         <h2>No results for {{ query }} in {{ name }}</h2>
         <p><a href="{{ context|model_url }}">Back to {{ name }}</a></p>
+        <p><a href="{{ context|model_url('search') }}">Back to search</a></p>
     {%- endif %}
 {% endblock %}
