@@ -31,9 +31,7 @@ def logfile(context, request):
             fro, to = map(int, rang.split('-'))
             for i in range(fro, to):
                 lines[i].highlighted = True
-        except ValueError:
-            pass
-        except IndexError:
+        except (ValueError, IndexError):
             pass
 
     return {'lines': lines, 'context': context}
