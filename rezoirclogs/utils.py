@@ -54,10 +54,3 @@ _colorPool = ColorPool()
 def colored(nick):
     color = _colorPool.get_color(nick)
     return Markup('<span style="color:%s">%s</span>')%(color, nick)
-
-_url_pattern = [
-        (re.compile(r"(\b(http|https|ftp)://([-A-Za-z0-9+&@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&@#/%=~_()|]))"),
-         Markup(r'<a href="%(url)s">%(url)s</a>')),
-        (re.compile(r"((^|\b)www\.([-A-Za-z0-9+&@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&@#/%=~_()|]))"),
-         Markup(r'<a href="http://%(url)s">%(url)s</a>'))
-]
