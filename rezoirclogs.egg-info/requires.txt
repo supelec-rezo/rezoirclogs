@@ -1,5 +1,0 @@
-pyramid
-WebError
-pyramid_jinja2
-deform
-pyramid_beaker
