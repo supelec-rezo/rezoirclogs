@@ -11,48 +11,27 @@ def convert_unknow_encoding(text):
 
 
 class LogLine(unicode):
-    '''
+    """
     The log line informations are populated when the 'type' attribute is accessed.
     This way, LogLine is lazy and can be used as a normal string in other cases.
-    '''
+    """
     def __new__(cls, value):
         return unicode.__new__(cls, convert_unknow_encoding(value))
 
+    _regex = [
+        (re.compile(r"(\d\d:\d\d) <(\w*)> ?(.*)"), 'normal'),
+        (re.compile(r"(\d\d:\d\d) *\* (\w*) ?(.*)"), 'me'),
+        (re.compile(r"(\d\d:\d\d) -!- (\w*) ?(.*)"), 'status'),
+        ]
+
     @reify
     def type(self):
-        # Shamefully stolen from the old code. It's ugly.
-        s = self.split(None, 2)
-
-        if s[1][0] == '<': #Message
-            self.time = s[0]
-            self.user = s[1][1:-1]
-            if len(s) == 3:
-                self.message = s[2]
-            else: #No message, so no split
-                self.message = ""
-            return 'normal'
-        elif s[1] == '*': #/me
-            s = self.split(None, 3)
-            self.time = s[0]
-            self.user = s[2]
-            try:
-                self.message = s[3]
-            except IndexError:
-                self.message = ''
-            return 'me'
-        elif s[1] == '-!-':
-            s = self.split(None, 3)
-            self.time = s[0]
-            self.user = s[2]
-            try:
-                self.message = s[3]
-            except IndexError:
-                self.message = ''
-            return 'status'
-
-        else: #autre
-            return 'unrecognized'
-
+        for r, type in LogLine._regex:
+            m = r.match(self)
+            if m:
+                self.time, self.user, self.message = m.groups()
+                return type
+        return 'unrecognized'
 
 class ColorPool(object):
     colors = [ "#E90C82", "#8E55E9", "#B30E0E", "#16B338", "#58B0B3", "#9D54B3", "#B39675", "#3176B3"]
