@@ -106,6 +106,7 @@ class SearchTests(unittest2.TestCase):
 
 class DummyObject(object):
     type = ''
+    time = None
 
 
 class DummyIterable(object):

@@ -21,8 +21,7 @@ def chan(context, request):
 def logfile(context, request):
     lines = list(context)
     for i, line in enumerate(lines):
-        line.type # to force the computation
-        if hasattr(line, 'time'):
+        if line.time:
             line.anchor = '%s' % i
             line.anchorlink = resource_url(context, request, anchor = line.anchor)
 
@@ -57,7 +56,6 @@ def search(context, request):
         results = []
         for line in search_results:
             line[2].anchorlink = resource_url(line[0], request, anchor = str(line[1]))
-            line[2].type
             line[2].date = line[0].date
             line[2].chan = line[0].__parent__.__name__
             results.append(line[2])

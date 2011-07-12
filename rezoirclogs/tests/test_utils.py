@@ -22,21 +22,6 @@ class ParseLogLineTests(unittest2.TestCase):
         from rezoirclogs.utils import LogLine
         return LogLine(*args, **kwargs)
 
-    def test_lazy(self):
-        line = "02:16 <ciblout> I'm sooo lazy"
-        m = self._get_FUT(line)
-        self.assertEqual(str(m), line)
-        assert 'type' in dir(m), "LogFile object has attribute type" # because hasattr calls the method
-        self.assertFalse(hasattr(m, 'message'))
-        self.assertFalse(hasattr(m, 'user'))
-        self.assertFalse(hasattr(m, 'time'))
-
-        t = m.type
-        self.assertEqual(t, "normal")
-        self.assertTrue(hasattr(m, 'message'))
-        self.assertTrue(hasattr(m, 'user'))
-        self.assertTrue(hasattr(m, 'time'))
-
     def test_normal(self):
         line = "02:16 <ciblout> je suis secretaire, c'est moi qui decide"
         m = self._get_FUT(line)

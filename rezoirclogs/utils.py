@@ -10,13 +10,29 @@ def convert_unknow_encoding(text):
     return t
 
 
+class lazy(object):
+    def __init__(self, property):
+        self.property = property
+
+    def __get__(self, inst, objtype=None):
+        if inst is None: #pragma: nocover
+            return self
+        inst.populate()
+        return getattr(inst, self.property)
+
+
 class LogLine(unicode):
     """
-    The log line informations are populated when the 'type' attribute is accessed.
+    The log line informations are populated when an attribute is accessed.
     This way, LogLine is lazy and can be used as a normal string in other cases.
     """
     def __new__(cls, value):
         return unicode.__new__(cls, convert_unknow_encoding(value))
+
+    type = lazy('type')
+    time = lazy('time')
+    user = lazy('user')
+    message = lazy('message')
 
     _regex = [
         (re.compile(r"(\d\d:\d\d) <(\w*)> ?(.*)"), 'normal'),
@@ -24,14 +40,16 @@ class LogLine(unicode):
         (re.compile(r"(\d\d:\d\d) -!- (\w*) ?(.*)"), 'status'),
         ]
 
-    @reify
-    def type(self):
+    def populate(self):
         for r, type in LogLine._regex:
             m = r.match(self)
             if m:
                 self.time, self.user, self.message = m.groups()
-                return type
-        return 'unrecognized'
+                self.type = type
+                return
+        self.type = 'unrecognized'
+        self.message = self
+        self.time, self.user = None, None
 
 class ColorPool(object):
     colors = [ "#E90C82", "#8E55E9", "#B30E0E", "#16B338", "#58B0B3", "#9D54B3", "#B39675", "#3176B3"]
