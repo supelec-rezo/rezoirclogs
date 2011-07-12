@@ -19,3 +19,7 @@ li.chan {
 .highlighted{
     background-color: #FFA858;
 }
+
+.selected{
+    background-color: #0099ff;
+}

@@ -20,10 +20,24 @@ def chan(context, request):
 @view_config(context=LogFile, renderer='logfile.jinja2')
 def logfile(context, request):
     lines = list(context)
+    get_args = request.GET.copy()
+    try:
+        select = int(get_args.pop('select'))
+        lines[select].selected = True
+    except (KeyError, ValueError):
+        select = None
+
     for i, line in enumerate(lines):
         if line.time:
-            line.anchor = '%s' % i
-            line.anchorlink = resource_url(context, request, anchor = line.anchor)
+            query = get_args.copy()
+            if select is None:
+                query.add('select', i)
+                line.anchor = '%s' % i
+            else:
+                fro, to = sorted((i, select))
+                query.add('range', '%s-%s'%(fro, to + 1))
+                line.anchor = '%s' % fro
+            line.anchorlink = resource_url(context, request, anchor=line.anchor, query=query)
 
     for rang in request.GET.getall('range'):
         try:
