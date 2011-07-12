@@ -9,7 +9,7 @@ CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 requires = ['pyramid', 'WebError', 'pyramid_jinja2', 'deform', 'pyramid_beaker']
 
 setup(name='rezoirclogs',
-      version='1.2',
+      version='1.3',
       description='rezoirclogs',
       long_description=README + '\n\n' +  CHANGES,
       classifiers=[
