@@ -1,3 +1,8 @@
+1.4
+-----
+
+- Bugfix : la regex des nicks était un tout petit peu trop restrictive.
+
 1.3
 ---
 
