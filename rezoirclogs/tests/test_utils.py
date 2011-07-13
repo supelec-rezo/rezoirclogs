@@ -69,6 +69,15 @@ class ParseLogLineTests(unittest2.TestCase):
         self.assertEqual(m.type, "unrecognized")
         self.assertEqual(str(m), "Ceci n'est pas une ligne de log")
 
+    def test_exotic_nicknames(self):
+        lines = [("20:26 <K-Yo> madjar, \o/", "K-Yo"),
+            ("22:14 <+K-Yo> putain, j'ai la même!", "K-Yo"),
+            ("22:14 <@DaLynX> merci remram", "DaLynX"),
+            ("01:59 < kage> c'est moche les GUI en java", "kage")]
+
+        for line, nick in lines:
+            self.assertEqual(self._get_FUT(line).user, nick, line)
+
 
 class ColorationTests(unittest2.TestCase):
     def test_colored(self):

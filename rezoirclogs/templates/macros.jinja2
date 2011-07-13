@@ -6,6 +6,6 @@
         {%- elif line.type == 'status' -%}
         -!- <b>{{ line.user | colored }}</b> {{ line.message }}
     {%- else -%}
-        {{ line.text }}
+        {{ line }}
     {%- endif -%}
 {%- endmacro %}

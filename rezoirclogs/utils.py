@@ -21,6 +21,9 @@ class lazy(object):
         return getattr(inst, self.property)
 
 
+_nick_regex = r"[ @+]?([A-Za-z0-9_`[{}^|\]\\-]*)"
+
+
 class LogLine(unicode):
     """
     The log line informations are populated when an attribute is accessed.
@@ -34,10 +37,11 @@ class LogLine(unicode):
     user = lazy('user')
     message = lazy('message')
 
+
     _regex = [
-        (re.compile(r"(\d\d:\d\d) <(\w*)> ?(.*)"), 'normal'),
-        (re.compile(r"(\d\d:\d\d) *\* (\w*) ?(.*)"), 'me'),
-        (re.compile(r"(\d\d:\d\d) -!- (\w*) ?(.*)"), 'status'),
+        (re.compile(r"(\d\d:\d\d) <%s> ?(.*)" % _nick_regex), 'normal'),
+        (re.compile(r"(\d\d:\d\d) *\* %s ?(.*)" % _nick_regex), 'me'),
+        (re.compile(r"(\d\d:\d\d) -!- %s ?(.*)" % _nick_regex), 'status'),
         ]
 
     def populate(self):
