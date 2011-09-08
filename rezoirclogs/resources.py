@@ -38,11 +38,13 @@ class Filesystem(object):
         log.debug('listdir %s', path)
         return os.listdir(path)
 
+    @cache_region('short_term')
     @jailed
     def isrealfile(self, path):
         log.debug('isrealfile %s', path)
         return os.path.isfile(path) and not os.path.islink(path)
 
+    @cache_region('short_term')
     @jailed
     def isrealdir(self, path):
         log.debug('isrealdir %s', path)
