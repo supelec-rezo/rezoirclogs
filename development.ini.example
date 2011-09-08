@@ -1,4 +1,4 @@
-[app:rezoirclogs]
+[app:main]
 use = egg:rezoirclogs
 reload_templates = true
 debug_authorization = false
@@ -6,6 +6,7 @@ debug_notfound = false
 debug_routematch = false
 debug_templates = true
 default_locale_name = fr
+pyramid.includes = pyramid_debugtoolbar
 
 jinja2.directories = rezoirclogs:templates/
 jinja2.filters =
@@ -20,11 +21,6 @@ cache.second.expire = 1
 cache.short_term.expire = 60
 cache.default_term.expire = 300
 cache.long_term.expire = 3600
-
-[pipeline:main]
-pipeline =
-    egg:WebError#evalerror
-    rezoirclogs
 
 [server:main]
 use = egg:Paste#http
