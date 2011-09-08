@@ -6,7 +6,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.txt')).read()
 CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
-requires = ['pyramid', 'WebError', 'pyramid_jinja2', 'deform', 'pyramid_beaker']
+requires = ['pyramid', 'WebError', 'pyramid_jinja2', 'deform', 'pyramid_beaker', 'unittest2']
 
 setup(name='rezoirclogs',
       version='1.4',
@@ -26,7 +26,6 @@ setup(name='rezoirclogs',
       include_package_data=True,
       zip_safe=False,
       install_requires=requires,
-      tests_require=requires + ['unittest2'],
       test_suite="rezoirclogs",
       entry_points = """\
       [paste.app_factory]
