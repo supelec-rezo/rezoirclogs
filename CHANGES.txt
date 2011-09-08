@@ -1,5 +1,12 @@
+1.5
+---
+
+- Release pédagogique
+- Correction des fautes dans les tests (ça c'est de la release)
+- Correction des dépendances
+
 1.4
------
+---
 
 - Bugfix : la regex des nicks était un tout petit peu trop restrictive.
 
