@@ -51,10 +51,10 @@ class ParseLogLineTests(unittest2.TestCase):
         self.assertEqual(m.message, "")
 
     def test_status(self):
-        line = "01:56 -!- ciblout [cyprien@mauvaise.fois] has quit [Quit: Bon debaras.]"
+        line = "01:56 -!- ciblout [cyprien@mauvaise.foi] has quit [Quit: Bon debaras.]"
         m = self._get_FUT(line)
         self.assertEqual(m.type, "status")
-        self.assertEqual(m.message, "[cyprien@mauvaise.fois] has quit [Quit: Bon debaras.]")
+        self.assertEqual(m.message, "[cyprien@mauvaise.foi] has quit [Quit: Bon debaras.]")
         self.assertEqual(m.user, 'ciblout')
         self.assertEqual(m.time, '01:56')
         self.assertEqual(str(m), line)
