@@ -12,7 +12,7 @@ jinja2.filters =
     model_url = pyramid_jinja2.filters:model_url_filter
     colored = rezoirclogs.utils:colored
 
-root = %(here)s/../logs_from_anakin
+root = %(here)s/irclogs/
 
 cache.regions = default_term, second, short_term, long_term
 cache.type = memory
