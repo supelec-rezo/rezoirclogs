@@ -8,6 +8,7 @@
     {% set previous = context.previous %}
     {% if previous %}<p><< <a href="{{ previous | model_url }}">{{ previous.date }}</a></p>{% endif %}
 
+    <div id="main">
     {% for line in lines %}
         <div {% if line.highlighted %}class="highlighted"{% endif %} {% if line.selected %}class="selected"{% endif %}>
         {% if line.anchor is defined %}
@@ -17,6 +18,7 @@
         <br/>
         </div>
     {% endfor %}
+    </div>
     {% set next = context.next %}
     {% if next %}<p><a href="{{ next | model_url }}">{{ next.date }} >> </a></p>{% endif %}
 {% endblock %}
