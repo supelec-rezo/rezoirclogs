@@ -1,3 +1,10 @@
+1.6
+---
+
+- Amélioration du CSS
+- Optimisation des performances (ajout de cache)
+- Préparation du passage à Pyramid 1.2
+
 1.5
 ---
 
