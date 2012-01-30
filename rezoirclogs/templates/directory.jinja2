@@ -33,7 +33,7 @@
     {% for chan in dir.chans %}
         {% if loop.first %}
             <h2>Chans</h2>
-            <div id="main">    
+            <div id="main">
             <ul>
         {% endif %}
     <li class="chan"> <a href="{{ chan | model_url }}">{{ chan.name }}</a>
@@ -45,7 +45,6 @@
     </li>
     {% if loop.last %}
         </ul>
-       <div style="clear:both; height:20px"></div>
     {% endif %}
     {% endfor %}
 
