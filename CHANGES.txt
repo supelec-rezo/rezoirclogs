@@ -1,3 +1,11 @@
+1.8
+---
+
+- Pleins d'améliorations avec bootstrap. Désolé pour le bump
+- Liste des chans
+- Des jolis boutons
+- Des jolies icones !
+
 1.7
 ---
 

@@ -10,7 +10,7 @@ requires = ['pyramid>=1.2dev', 'pyramid_debugtoolbar', 'pyramid_jinja2',
             'deform', 'pyramid_beaker', 'unittest2', 'deform_bootstrap']
 
 setup(name='rezoirclogs',
-      version='1.7',
+      version='1.8',
       description='rezoirclogs',
       long_description=README + '\n\n' +  CHANGES,
       classifiers=[
