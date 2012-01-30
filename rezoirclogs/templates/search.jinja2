@@ -7,7 +7,7 @@
     {% set name = context.__name__ or '/' %}
     {% if form %}
         <h2>Search in {{ name }}</h2>
-        <p><a href="{{ context|model_url }}">Back to {{ name }}</a></p>
+        <div><a class="btn" href="{{ context|model_url }}">Back to {{ name }}</a></div>
     {{ form|safe }}
 <script type="text/javascript">
    deform.load()
@@ -16,8 +16,8 @@
 
     {% if results %}
         <h2>Search results for {{ query }} in {{ name }}</h2>
-        <p><a href="{{ context|model_url }}">Back to {{ name }}</a></p>
-        <p><a href="{{ context|model_url('search') }}">Back to search</a></p>
+        <div><a class="btn" href="{{ context|model_url }}">Back to {{ name }}</a>
+        <a class="btn" href="{{ context|model_url('search') }}">Back to search</a></div>
     {% for date, list_for_date in results|groupby('date')|reverse -%}
         <h3>{{ date }}</h3>
         {% for chan, list in list_for_date|groupby('chan') -%}

@@ -17,6 +17,7 @@ def main(global_config, **settings):
     set_cache_regions_from_settings(settings)
     config = Configurator(root_factory=get_root, settings=settings)
     config.include('pyramid_jinja2')
+    config.include('deform_bootstrap')
     config.scan()
     config.add_static_view('static', 'rezoirclogs:static')
     config.add_static_view('static_form', 'deform:static')

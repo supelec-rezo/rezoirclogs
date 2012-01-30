@@ -5,11 +5,13 @@
 {% block content %}
 <h1>{{ chan.__name__ }}</h1>
 
+    <div>
     {% if chan.__parent__ %}
-        <a href="{{ chan.__parent__ | model_url }}">..</a>
+        <a class="btn" href="{{ chan.__parent__ | model_url }}">..</a>
     {% endif %}
 
-    <p><a href="{{ context|model_url('search') }}">Search</a></p>
+    <a class="btn info" href="{{ context|model_url('search') }}">Search</a>
+    </div>
 
     {% for file in chan %}
         {% if loop.first %}

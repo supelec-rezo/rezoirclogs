@@ -6,7 +6,8 @@ here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.txt')).read()
 CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
-requires = ['pyramid>=1.2dev', 'pyramid_debugtoolbar', 'pyramid_jinja2', 'deform', 'pyramid_beaker', 'unittest2']
+requires = ['pyramid>=1.2dev', 'pyramid_debugtoolbar', 'pyramid_jinja2',
+            'deform', 'pyramid_beaker', 'unittest2', 'deform_bootstrap']
 
 setup(name='rezoirclogs',
       version='1.7',

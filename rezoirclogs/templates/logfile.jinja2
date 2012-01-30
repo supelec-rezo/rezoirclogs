@@ -4,9 +4,9 @@
 {% block title %}{{ context.__parent__.__name__ }} {{ context.__name__ }}{% endblock %}
 
 {% block content %}
-    <p><a href="{{ context.__parent__ | model_url }}">..</a></p>
+    <p><a class="btn" href="{{ context.__parent__ | model_url }}">..</a></p>
     {% set previous = context.previous %}
-    {% if previous %}<p><< <a href="{{ previous | model_url }}">{{ previous.date }}</a></p>{% endif %}
+    {% if previous %}<a class="btn" href="{{ previous | model_url }}"><i class="icon chevron-left"></i> {{ previous.date }}</a>{% endif %}
 
     <div id="main">
     {% for line in lines %}
@@ -20,5 +20,5 @@
     {% endfor %}
     </div>
     {% set next = context.next %}
-    {% if next %}<p><a href="{{ next | model_url }}">{{ next.date }} >> </a></p>{% endif %}
+    {% if next %}<p><a class="btn" href="{{ next | model_url }}">{{ next.date }} <i class="icon chevron-right"></i></a></p>{% endif %}
 {% endblock %}

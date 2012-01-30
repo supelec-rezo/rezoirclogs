@@ -58,7 +58,7 @@ class Search(colander.MappingSchema):
 
 @view_config(name='search', renderer='search.jinja2')
 def search(context, request):
-    search_form = Form(Search(), action='search', buttons=('search',))
+    search_form = Form(Search(), action='search', buttons=('search',), css_class='well')
     if 'search' in request.POST:
         try:
             appstruct = search_form.validate(request.POST.items())

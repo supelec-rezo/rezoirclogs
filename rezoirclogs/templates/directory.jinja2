@@ -9,12 +9,13 @@
         <h1>Logs IRC</h1>
     {% endif %}
 
+    <div>
     {% if dir.__parent__ %}
-        <a href="{{ dir.__parent__ | model_url }}">..</a>
+        <a class="btn" href="{{ dir.__parent__ | model_url }}">..</a>
     {% endif %}
 
-    <p><a href="{{ context|model_url('search') }}">Search</a></p>
-
+    <a class="btn info" href="{{ context|model_url('search') }}">Search</a>
+    </div>
 
     {% for subdir in dir %}
         {% if loop.first %}
@@ -33,18 +34,17 @@
     {% for chan in dir.chans %}
         {% if loop.first %}
             <h2>Chans</h2>
-            <div id="main">
-            <ul>
+            <div class="row">
         {% endif %}
-    <li class="chan"> <a href="{{ chan | model_url }}">{{ chan.name }}</a>
-        <ul>
+    <div class="span3"> <h3><a href="{{ chan | model_url }}">{{ chan.name }}</a></h3>
+        <ul class="unstyled">
             {% for file in chan.last(5) %}
                 <li class="file"><a href="{{ file | model_url }}">{{ file.date.strftime('%d/%m/%Y (%A)') }}</a></li>
             {% endfor %}
         </ul>
-    </li>
+    </div>
     {% if loop.last %}
-        </ul>
+        </div>
     {% endif %}
     {% endfor %}
 
