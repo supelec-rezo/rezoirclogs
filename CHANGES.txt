@@ -1,3 +1,9 @@
+1.7
+---
+
+- Utilisation de bootstrap pour la css
+- Amélioration pour la visualisation sur téléphone
+
 1.6
 ---
 

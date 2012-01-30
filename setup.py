@@ -9,7 +9,7 @@ CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 requires = ['pyramid>=1.2dev', 'pyramid_debugtoolbar', 'pyramid_jinja2', 'deform', 'pyramid_beaker', 'unittest2']
 
 setup(name='rezoirclogs',
-      version='1.6',
+      version='1.7',
       description='rezoirclogs',
       long_description=README + '\n\n' +  CHANGES,
       classifiers=[
