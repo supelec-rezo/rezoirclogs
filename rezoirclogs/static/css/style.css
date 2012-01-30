@@ -1,0 +1,20 @@
+
+a.time, a.time:visited {
+    text-decoration: none;
+    color: #8888cc;
+}
+a.time:active, a.time:hover {
+    text-decoration: none;
+    color: #9999dd;
+}
+a.time:before { content: "["; }
+a.time:after { content: "]"; }
+
+
+.highlighted{
+    background-color: #D9EDF7;
+}
+
+.selected{
+    background-color: #FCF8E3;
+}

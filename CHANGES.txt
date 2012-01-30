@@ -1,3 +1,8 @@
+1.9
+---
+
+- Correction de la css pour le hl. Ça bump comme c'est pas permit !
+
 1.8
 ---
 
