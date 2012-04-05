@@ -23,7 +23,7 @@ cache.default_term.expire = 300
 cache.long_term.expire = 3600
 
 [server:main]
-use = egg:Paste#http
+use = egg:waitress#main
 host = 0.0.0.0
 port = 6543
 

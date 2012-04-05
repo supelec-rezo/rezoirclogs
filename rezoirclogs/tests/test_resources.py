@@ -18,7 +18,7 @@ class FilesystemTests(unittest2.TestCase):
 
     def _config_cache(self):
         from beaker import cache
-        cache.cache_regions['short_term'] = {}
+        cache.cache_regions['short_term'] = {'key_length': 0}
 
     def test_list_jail(self):
         from os.path import abspath, join, dirname
