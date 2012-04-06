@@ -100,7 +100,7 @@ body {
   font-size: 13px;
   line-height: 18px;
   color: #555555;
-  background-color: #ffffff;
+  background-color: #eee;
 }
 a {
   color: #0088cc;
@@ -312,6 +312,10 @@ h6 small {
 h1 {
   font-size: 30px;
   line-height: 36px;
+  color: #555;
+  border-bottom: 1px solid #aaa;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
 }
 h1 small {
   font-size: 18px;
@@ -1769,6 +1773,7 @@ table .span12 {
 .btn {
   display: inline-block;
   padding: 4px 10px 4px;
+  margin: 5px 0px 5px 0px;
   font-size: 13px;
   line-height: 18px;
   color: #333333;
@@ -3323,4 +3328,17 @@ a.thumbnail:hover {
 }
 .invisible {
   visibility: hidden;
+}
+
+#content {
+  margin: 15px 5px 15px 5px;
+  padding : 10px;
+  border: 1px solid #aaa;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+     -moz-box-shadow: 0 10px 6px -6px #777;
+          box-shadow: 0 10px 6px -6px #777;
 }
