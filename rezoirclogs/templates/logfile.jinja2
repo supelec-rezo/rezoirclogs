@@ -1,7 +1,7 @@
 {% extends "base.jinja2" %}
 {% from 'macros.jinja2' import display_line %}
 
-{% block title %}{{ context.__parent__.__name__ }} {{ context.__name__ }}{% endblock %}
+{% block title %} - {{ context.__parent__.__name__ }} - {{ context.__name__ }}{% endblock %}
 
 {% block content %}
     <p><a class="btn" href="{{ context.__parent__ | model_url }}">..</a></p>

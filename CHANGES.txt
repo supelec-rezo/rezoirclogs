@@ -2,17 +2,18 @@ dev
 ---
 
 - Pyramid 1.3 compatibility
+- Some design improvements
 - Now public !
 
 1.9
 ---
 
-- Correction de la css pour le hl. Ça bump comme c'est pas permit !
+- Correction de la css pour le hl. Ça bump comme c'est pas permi !
 
 1.8
 ---
 
-- Pleins d'améliorations avec bootstrap. Désolé pour le bump
+- Plein d'améliorations avec bootstrap. Désolé pour le bump.
 - Liste des chans
 - Des jolis boutons
 - Des jolies icones !

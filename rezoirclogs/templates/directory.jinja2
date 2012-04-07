@@ -1,12 +1,18 @@
 {% extends "base.jinja2" %}
 
-{% block title %}Directory : {{ dir.__name__ }}{% endblock %}
+{% block title %}
+    {% if dir.__name__ != '' %}
+        - {{ dir.__name__ }}
+    {% else %}
+        - Accueil
+    {% endif %}
+ {% endblock %}
 
 {% block content %}
     {% if dir.__name__ != '' %}
         <h1>{{ dir.__name__ }}</h1>
     {% else %}
-        <h1>Logs IRC</h1>
+        <h1>IRC Logs</h1>
     {% endif %}
 
     <div>

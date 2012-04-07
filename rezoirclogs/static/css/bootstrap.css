@@ -3330,6 +3330,10 @@ a.thumbnail:hover {
   visibility: hidden;
 }
 
+/*
+ * Ajouté par Rémi Chaintreuil <remi.chaintreuil@gmail.com>
+ */
+
 #content {
   margin: 15px 5px 15px 5px;
   padding : 10px;
@@ -3341,4 +3345,8 @@ a.thumbnail:hover {
   -webkit-box-shadow: 0 10px 6px -6px #777;
      -moz-box-shadow: 0 10px 6px -6px #777;
           box-shadow: 0 10px 6px -6px #777;
+}
+
+footer {
+  text-align: center;
 }

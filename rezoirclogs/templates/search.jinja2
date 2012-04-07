@@ -1,7 +1,9 @@
 {% extends "base.jinja2" %}
 {% from 'macros.jinja2' import display_line %}
 
-{% block title %}Search results for {{ query }}{% endblock %}
+{% block title %}
+        - Search results for {{ query }}
+ {% endblock %}
 
 {% block content %}
     {% set name = context.__name__ or '/' %}
