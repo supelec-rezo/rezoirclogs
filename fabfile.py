@@ -15,7 +15,7 @@ def deploy():
         run('wget https://raw.github.com/madjar/rezoirclogs/master/production.ini -O production.ini')
         if not exists('venv'):
             run('virtualenv venv')
-        run('venv/bin/pip install -e git://github.com/madjar/rezoirclogs.git#egg=rezoirclogs')
+        run('venv/bin/pip install -e git://github.com/madjar/rezoirclogs.git@origin#egg=rezoirclogs')
         with cd('venv/'):
             run('wget https://raw.github.com/madjar/rezoirclogs/master/pyramid.wsgi -O pyramid.wsgi')
         # put('pyramid.wsgi', 'venv/')
