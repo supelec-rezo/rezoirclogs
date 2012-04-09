@@ -9,4 +9,7 @@ It's based on pyramid, and can be used like any other pyramid app. Just change t
 
 I developped it to scratch my own itch, so it may need some tweaking to suits your needs. The code is (hopefully) clean and well-tested, but if you need anything, fell free to contact me.
 
-.. image:: https://secure.travis-ci.org/madjar/rezoirclogs.png?branch=master
+|travis|_
+
+.. |travis| image:: https://secure.travis-ci.org/supelec-rezo/rezoirclogs.png?branch=master
+.. _travis: http://travis-ci.org/supelec-rezo/rezoirclogs
