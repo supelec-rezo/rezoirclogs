@@ -1,34 +1,34 @@
 RezoIrcLogs
 ===========
 
-``rezoirclogs`` is a small web app that displays irc logs in a beautiful way and provide search.
+``rezoirclogs`` is a small web app that displays irc logs in a beautiful way and provides search.
 
-It's designed to read log files that look more or less like irssi log files, and that are organized in any hierarchy of subdirs. The log files have names that look like ``#chan_name.20101209.log``
+It's designed to read log files in a format close to irssi's log files, organized in any hierarchy of subdirectories. The filenames should look like ``#chan_name.20101209.log``
 
-It's based on pyramid, and can be used like any other pyramid app. Just change the root value in the config file to point to the root of your log files.
+It's based on `Pyramid <http://www.pylonsproject.org/projects/pyramid/about>`_, and can be used like any other Pyramid app. Just change the root value in the config file to point to the root of your log files.
 
-I developped it to scratch my own itch, so it may need some tweaking to suits your needs. The code is (hopefully) clean and well-tested, but if you need anything, fell free to contact me.
+I developped it to scratch my own itch, so it may need some tweaking to suit your needs. The code is (hopefully) clean and well-tested, but if you need anything, fell free to contact me.
 
 Installation
 ------------
 
-* Clone the repository or extract the archive to the folder of your choice. (In the following let's assume it's ``$PATH_TO_REZOIRCLOGS``)
+* Clone the repository or extract the archive to the folder of your choice. (In the following we'll assume it's ``$PATH_TO_REZOIRCLOGS``)
 * Create a virtualenv where you want with ``virtualenv --no-site-packages $PATH_TO_VENV`` (replace ``$PATH_TO_VENV`` with whatever you feel appropriate)
 * Activate the virtualenv with ``source $PATH_TO_VENV/bin/activate``
-* Install rezoirclogs with ``pip install -e $PATH_TO_REZOIRCLOGS``
+* Install rezoirclogs with ``pip install -e $PATH_TO_REZOIRCLOGS`` (-e means that the app will be run straight from the sources directory in $PATH_TO_REZOIRCLOGS instead of copied into the virtualenv; doing this will allow you to update or tweak the app simply by updating the repository)
 * Adjust the *root* parameter in *development.ini* and/or *production.ini* to match the path where your logs files are stored
 * Execute ``pserve production.ini`` to start the builtin webserver, which by default listens on the port 6543. Check if everything is running fine.
 
 Apache Configuration
 --------------------
 
-If the application is correctly installed (see above) it is then possible to let it run as a WSGI application through Apache.
+If the application is correctly installed (see above), it is possible to have it run as a WSGI application through Apache.
 
-First, edit ``$PATH_TO_REZOIRCLOGS/pyramid.wsgi`` and set the correct path to rezoirclogs application::
+First, edit ``$PATH_TO_REZOIRCLOGS/pyramid.wsgi`` and set the correct path to the rezoirclogs application::
 
     application = get_app('$PATH_TO_REZOIRCLOGS/production.ini', 'main')
 
-Then let Apache find your WSGI application. Hereafter is a configuration example for a VirtualHost (with HTTP Auth Basic password protection). Don't forget to replace ``$PATH_TO_REZOIRCLOGS`` and ``$PATH_TO_VENV`` with the actual values, and edit it to suit your needs.
+Then you need to add a VirtualHost or alias for your WSGI application. Here is a configuration example for a VirtualHost, with HTTP Auth Basic password protection. Don't forget to replace ``$PATH_TO_REZOIRCLOGS`` and ``$PATH_TO_VENV`` with the actual values, and edit it to suit your needs.
 
 ::
 
@@ -64,7 +64,7 @@ Then let Apache find your WSGI application. Hereafter is a configuration example
         </IfModule>
     </VirtualHost>
 
-The user under which will be executed the WSGI application must have read permissions on the directory where the irclogs lie (i.e. in the above configuration example, *www-data* must be able to read the directory set up in ``production.ini``.)
+The user under which will be executed the WSGI application must have read permissions on the directory where the irc logs lie (i.e. in the above configuration example, *www-data* must be able to read the directory set up in ``production.ini``).
 
 Further Tweaking
 ----------------
