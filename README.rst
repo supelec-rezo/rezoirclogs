@@ -12,10 +12,10 @@ I developped it to scratch my own itch, so it may need some tweaking to suits yo
 Installation
 ------------
 
-* Clone the repository or extract the archive to the folder of your choice. (In the following let's assume it's ``$PATH_TO_RZEOIRCLOGS``)
+* Clone the repository or extract the archive to the folder of your choice. (In the following let's assume it's ``$PATH_TO_REZOIRCLOGS``)
 * Create a virtualenv where you want with ``virtualenv --no-site-packages $PATH_TO_VENV`` (replace ``$PATH_TO_VENV`` with whatever you feel appropriate)
 * Activate the virtualenv with ``source $PATH_TO_VENV/bin/activate``
-* Install rezoirclogs with ``pip install -e $PATH_TO_RZEOIRCLOGS``
+* Install rezoirclogs with ``pip install -e $PATH_TO_REZOIRCLOGS``
 * Adjust the *root* parameter in *development.ini* and/or *production.ini* to match the path where your logs files are stored
 * Execute ``pserve production.ini`` to start the builtin webserver, which by default listens on the port 6543. Check if everything is running fine.
 
