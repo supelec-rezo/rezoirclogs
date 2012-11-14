@@ -23,46 +23,61 @@ class ParseLogLineTests(unittest2.TestCase):
         return LogLine(*args, **kwargs)
 
     def test_normal(self):
-        line = "02:16 <ciblout> je suis secretaire, c'est moi qui decide"
-        m = self._get_FUT(line)
-        self.assertEqual(m.type, "normal")
-        self.assertEqual(m.message, "je suis secretaire, c'est moi qui decide")
-        self.assertEqual(m.user, 'ciblout')
-        self.assertEqual(m.time, '02:16')
-        self.assertEqual(str(m), line)
+        lines = [("02:16 <ciblout> je suis secretaire, c'est moi qui decide", "normal", "je suis secretaire, c'est moi qui decide", 'ciblout', '02:16'),
+                 ("02:16:45 <ciblout> je suis secretaire, c'est moi qui decide", "normal", "je suis secretaire, c'est moi qui decide", 'ciblout', '02:16:45')]
+        for line, expected_type, expected_message, expected_nick, expected_time in lines:
+            m = self._get_FUT(line)
+            self.assertEqual(m.type, expected_type)
+            self.assertEqual(m.message, expected_message)
+            self.assertEqual(m.user, expected_nick)
+            self.assertEqual(m.time, expected_time)
+            self.assertEqual(str(m), line)
 
     def test_normal_empty(self):
-        m = self._get_FUT("02:16 <ciblout>")
-        self.assertEqual(m.type, "normal")
-        self.assertEqual(m.message, "")
+        lines = ["02:16 <ciblout>",
+                 "02:16:45 <ciblout>"]
+        for line in lines:
+            m = self._get_FUT(line)
+            self.assertEqual(m.type, "normal")
+            self.assertEqual(m.message, "")
 
     def test_me(self):
-        line = "02:16  * ciblout dit encore des conneries"
-        m = self._get_FUT(line)
-        self.assertEqual(m.type, "me")
-        self.assertEqual(m.message, "dit encore des conneries")
-        self.assertEqual(m.user, 'ciblout')
-        self.assertEqual(m.time, '02:16')
-        self.assertEqual(str(m), line)
+        lines = [("02:16  * ciblout dit encore des conneries", "me", "dit encore des conneries", 'ciblout', '02:16'),
+                 ("02:16:45  * ciblout dit encore des conneries", "me", "dit encore des conneries", 'ciblout', '02:16:45')]
+        for line, expected_type, expected_message, expected_nick, expected_time in lines:
+            m = self._get_FUT(line)
+            self.assertEqual(m.type, expected_type)
+            self.assertEqual(m.message, expected_message)
+            self.assertEqual(m.user, expected_nick)
+            self.assertEqual(m.time, expected_time)
+            self.assertEqual(str(m), line)
 
     def test_me_empty(self):
-        m = self._get_FUT("02:16  * ciblout")
-        self.assertEqual(m.type, "me")
-        self.assertEqual(m.message, "")
+        lines = ["02:16  * ciblout",
+                 "02:16:45  * ciblout"]
+        for line in lines:
+            m = self._get_FUT(line)
+            self.assertEqual(m.type, "me")
+            self.assertEqual(m.message, "")
 
     def test_status(self):
-        line = "01:56 -!- ciblout [cyprien@mauvaise.foi] has quit [Quit: Bon debaras.]"
-        m = self._get_FUT(line)
-        self.assertEqual(m.type, "status")
-        self.assertEqual(m.message, "[cyprien@mauvaise.foi] has quit [Quit: Bon debaras.]")
-        self.assertEqual(m.user, 'ciblout')
-        self.assertEqual(m.time, '01:56')
-        self.assertEqual(str(m), line)
+        lines = [("01:56 -!- ciblout [cyprien@mauvaise.foi] has quit [Quit: Bon debaras.]", "status", "[cyprien@mauvaise.foi] has quit [Quit: Bon debaras.]", 'ciblout', '01:56'),
+                 ("01:56:09 -!- ciblout [cyprien@mauvaise.foi] has quit [Quit: Bon debaras.]", "status", "[cyprien@mauvaise.foi] has quit [Quit: Bon debaras.]", 'ciblout', '01:56:09')]
+        for line, expected_type, expected_message, expected_nick, expected_time in lines:
+            m = self._get_FUT(line)
+            self.assertEqual(m.type, expected_type)
+            self.assertEqual(m.message, expected_message)
+            self.assertEqual(m.user, expected_nick)
+            self.assertEqual(m.time, expected_time)
+            self.assertEqual(str(m), line)
 
     def test_status_empty(self):
-        m = self._get_FUT("01:56 -!- ciblout ")
-        self.assertEqual(m.type, "status")
-        self.assertEqual(m.message, "")
+        lines = ["02:16 -!- ciblout",
+                 "02:16:45 -!- ciblout"]
+        for line in lines:
+            m = self._get_FUT(line)
+            self.assertEqual(m.type, "status")
+            self.assertEqual(m.message, "")
 
     def test_unrecognized(self):
         m = self._get_FUT("Ceci n'est pas une ligne de log")
@@ -73,6 +88,8 @@ class ParseLogLineTests(unittest2.TestCase):
         lines = [("20:26 <K-Yo> madjar, \o/", "K-Yo"),
             ("22:14 <+K-Yo> putain, j'ai la même!", "K-Yo"),
             ("22:14 <@DaLynX> merci remram", "DaLynX"),
+            ("04:54 <@Zertr1> derns!", "Zertr1"),
+            ("04:54:00 <@Zertr1> derns!", "Zertr1"),
             ("01:59 < kage> c'est moche les GUI en java", "kage")]
 
         for line, nick in lines:
