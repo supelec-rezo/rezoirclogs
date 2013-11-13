@@ -156,14 +156,14 @@ class Directory(Base):
 
     @property
     def dirs(self):
-        for name in self.fs.listdir(self.path):
+        for name in sorted(self.fs.listdir(self.path)):
             path = self.fs.join(self.path, name)
             if self.fs.isrealdir(path):
                 yield self._make_dir(name)
 
     @property
     def chans(self):
-        files = (name for name in self.fs.listdir(self.path)
+        files = (name for name in sorted(self.fs.listdir(self.path))
                  if self.fs.isrealfile(self.fs.join(self.path, name)) and name.endswith('.log'))
 
         for chan in set(name.rsplit('.', 2)[0] for name in files):
