@@ -85,7 +85,7 @@ class SearchTests(unittest2.TestCase):
         parent = DummyObject()
         parent.__name__ = ''
         obj.__parent__ = parent
-        obj.__name__ = ''
+        obj.__name__ = 'dummy'
         obj.date = ''
         obj.search = lambda x, y: [(obj, 42, DummyObject())]
         request = testing.DummyRequest()
@@ -94,7 +94,7 @@ class SearchTests(unittest2.TestCase):
         response = search(obj, request)
         self.assertEqual(len(response['results']), 1)
         self.assertEqual(response['results'][0].anchorlink,
-                         'http://example.com/#42')
+                         'http://example.com/dummy/#42')
         self.assertEqual(response['query'], 'lala')
 
     def test_search_form_with_no_query(self):
