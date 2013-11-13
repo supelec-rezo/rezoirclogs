@@ -79,6 +79,25 @@ class ParseLogLineTests(unittest2.TestCase):
             self.assertEqual(m.type, "status")
             self.assertEqual(m.message, "")
 
+    def test_service(self):
+        lines = [("01:53 -ChanServ(services@services.rezosup.org)- Informations pour le canal #linux:", "service", "Informations pour le canal #linux:", 'ChanServ(services@services.rezosup.org)', '01:53'),
+                 ("01:53:09 -ChanServ(services@services.rezosup.org)- Informations pour le canal #linux:", "service", "Informations pour le canal #linux:", 'ChanServ(services@services.rezosup.org)', '01:53:09')]
+        for line, expected_type, expected_message, expected_nick, expected_time in lines:
+            m = self._get_FUT(line)
+            self.assertEqual(m.type, expected_type)
+            self.assertEqual(m.message, expected_message)
+            self.assertEqual(m.user, expected_nick)
+            self.assertEqual(m.time, expected_time)
+            self.assertEqual(str(m), line)
+
+    def test_service_empty(self):
+        lines = ["12:11 -ChanServ(services@services.rezosup.org)-",
+                 "12:11:10 -ChanServ(services@services.rezosup.org)-"]
+        for line in lines:
+            m = self._get_FUT(line)
+            self.assertEqual(m.type, "service")
+            self.assertEqual(m.message, "")
+
     def test_unrecognized(self):
         m = self._get_FUT("Ceci n'est pas une ligne de log")
         self.assertEqual(m.type, "unrecognized")
