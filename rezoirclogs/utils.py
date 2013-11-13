@@ -42,6 +42,7 @@ class LogLine(unicode):
         (re.compile(r"(\d\d:\d\d(?::\d\d)??) <%s> ?(.*)" % _nick_regex), 'normal'),
         (re.compile(r"(\d\d:\d\d(?::\d\d)??) *\* %s ?(.*)" % _nick_regex), 'me'),
         (re.compile(r"(\d\d:\d\d(?::\d\d)??) -!- %s ?(.*)" % _nick_regex), 'status'),
+        (re.compile(r"(\d\d:\d\d(?::\d\d)??) -(.+)?- ?(.*)"), 'service'),
         ]
 
     def populate(self):

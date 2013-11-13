@@ -5,6 +5,8 @@
         * <b>{{ line.user | colored}}</b> {{ line.message | urlize}}
         {%- elif line.type == 'status' -%}
         -!- <b>{{ line.user | colored }}</b> {{ line.message }}
+        {%- elif line.type == 'service' -%}
+        -<b>{{ line.user | colored }}</b>- {{ line.message }}
     {%- else -%}
         {{ line }}
     {%- endif -%}
