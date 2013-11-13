@@ -90,7 +90,9 @@ class ParseLogLineTests(unittest2.TestCase):
             ("22:14 <@DaLynX> merci remram", "DaLynX"),
             ("04:54 <@Zertr1> derns!", "Zertr1"),
             ("04:54:00 <@Zertr1> derns!", "Zertr1"),
-            ("01:59 < kage> c'est moche les GUI en java", "kage")]
+            ("01:59 < kage> c'est moche les GUI en java", "kage"),
+            ("11:59 <~kage> c'est moche les GUI en java", "kage"),
+            ("01:59 <&kage> c'est moche les GUI en java", "kage")]
 
         for line, nick in lines:
             self.assertEqual(self._get_FUT(line).user, nick, line)
