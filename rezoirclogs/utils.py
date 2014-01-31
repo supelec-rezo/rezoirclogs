@@ -21,7 +21,7 @@ class lazy(object):
         return getattr(inst, self.property)
 
 
-_nick_regex = r"[ @~&+]?([A-Za-z0-9_`[{}^|\]\\-]*)"
+_nick_regex = r"[ @~&+%]?([A-Za-z0-9_`[{}^|\]\\-]*)"
 
 
 class LogLine(unicode):
