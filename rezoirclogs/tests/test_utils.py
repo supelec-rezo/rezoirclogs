@@ -111,6 +111,7 @@ class ParseLogLineTests(unittest2.TestCase):
             ("04:54:00 <@Zertr1> derns!", "Zertr1"),
             ("01:59 < kage> c'est moche les GUI en java", "kage"),
             ("11:59 <~kage> c'est moche les GUI en java", "kage"),
+            ("11:59 <%zeroNounours> test", "zeroNounours"),
             ("01:59 <&kage> c'est moche les GUI en java", "kage")]
 
         for line, nick in lines:
